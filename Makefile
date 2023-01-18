@@ -6,7 +6,7 @@
 #    By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/09 00:10:02 by jlucas-s          #+#    #+#              #
-#    Updated: 2023/01/18 16:26:07 by jlucas-s         ###   ########.fr        #
+#    Updated: 2023/01/18 20:00:16 by jlucas-s         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,8 @@ LIBFTPATH =		./lib
 LIBFT =			./lib/libft.a
 
 SRCS =			main.c		\
+				exec.c		\
+				fork.c		\
 
 OBJS_DIR = 		./objects
 OBJS =			$(addprefix $(OBJS_DIR)/, $(SRCS:.c=.o))
