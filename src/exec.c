@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 19:09:40 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/01/18 19:54:45 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/01/19 20:15:17 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void	exec_command(char *command, char **envp)
 	int		i;
 
 	possible_paths = find_paths(envp);
-	ft_strlcpy(command, command, ft_strlen(command));
 	cmd = ft_split(command, ' ');
 
 	i = -1;

@@ -1,38 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   terminal_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/16 16:15:55 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/01/19 20:37:13 by jlucas-s         ###   ########.fr       */
+/*   Created: 2023/01/19 20:36:37 by jlucas-s          #+#    #+#             */
+/*   Updated: 2023/01/19 20:39:05 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	main(int argc, char *argv[], char *envp[])
+static void	print_terminal_line(char *envp[])
 {
-	char	*command;
+	static int	i;
 
-	if (argc > 1)
-		exit (1);
+	i--;
+	while (envp[++i])
+		if (!ft_strncmp(envp[i], "PWD", 3))
+		{
+			ft_printf("%s:~%s\n$> ", "Minishell", envp[i] + 4);
+			break ;
+		}
+}
 
-	command = terminal_line(envp, 0);
-	while (command && ft_strncmp(command, "exit", 4))
-	{
-		child_process(command, envp);
-	
+char	*terminal_line(char *envp[], int del)
+{
+	char	*line;
 
-		free(command);
-		command = terminal_line(envp, 0);
-	}
-
-	if (!command)
-		ft_putchar('\n');
-	terminal_line(envp, -1);
-	free(command);
-
-	return (0);
+	if (del == -1)
+		return (get_next_line(-1));
+	print_terminal_line(envp);
+	line = get_next_line(STDIN_FILENO);
+	if (line)
+		line[ft_strlen(line) - 1] = 0;
+	return (line);
 }
