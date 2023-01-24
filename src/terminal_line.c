@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 20:36:37 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/01/19 20:39:05 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/01/24 17:52:25 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,8 @@ static void	print_terminal_line(char *envp[])
 		}
 }
 
-char	*terminal_line(char *envp[], int del)
+char	*prompt(char *envp[])
 {
-	char	*line;
-
-	if (del == -1)
-		return (get_next_line(-1));
 	print_terminal_line(envp);
-	line = get_next_line(STDIN_FILENO);
-	if (line)
-		line[ft_strlen(line) - 1] = 0;
-	return (line);
+	return (readline(""));
 }

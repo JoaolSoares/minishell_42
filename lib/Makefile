@@ -1,7 +1,8 @@
 NAME = libft.a
 
-GREEN				= \033[1;32m
-NOCOLOR				= \033[0m
+GREEN =				\033[1;32m
+RED =				\033[1;31m 
+NOCOLOR	=			\033[0m
 
 SRCS =  src/is_functions/ft_isalnum.c		\
         src/is_functions/ft_isalpha.c		\
@@ -62,11 +63,11 @@ all: ${NAME}
 
 ${NAME}: ${OBJS}
 	@ ar -rcs ${NAME} ${OBJS}
-	@ echo "${GREEN}-=- LIBFT SUCCESSFUL COMPILED -=-${NOCOLOR}"
+	@ echo "${GREEN} -=- LIBFT SUCCESSFUL COMPILED -=-${NOCOLOR}"
 
 clean:	
 	@ rm -f ${OBJS}
-	@ echo "${GREEN}-=- CLEANED -=-${NOCOLOR}"
+	@ echo "${RED}-=- LIBFT CLEANED -=-${NOCOLOR}"
 
 fclean: clean
 	@ rm -f ${NAME}

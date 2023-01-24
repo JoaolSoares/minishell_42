@@ -6,11 +6,11 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 19:09:40 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/01/19 20:15:17 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/01/24 20:47:57 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 static void	free_split(char **split)
 {
@@ -52,6 +52,8 @@ void	exec_command(char *command, char **envp)
 		free(path);
 	}
 	ft_printf("%s: Command Not Found\n", cmd[0]);
-	free_split(cmd);	
+	free_split(cmd);
 	free(possible_paths);
+	free(command);
+	exit (30);
 }
