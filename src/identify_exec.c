@@ -1,40 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   identify_exec.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/16 16:15:55 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/02/07 20:17:08 by jlucas-s         ###   ########.fr       */
+/*   Created: 2023/01/31 16:35:50 by jlucas-s          #+#    #+#             */
+/*   Updated: 2023/02/10 19:37:03 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	main(int argc, char *argv[], char *envp[])
+void	identify_exec(char *command, char *envp[])
 {
-	char	*command;
-	pid_t	pid;
-
-	if (argc > 1 && argv)
-		exit (1);
-
-	command = prompt(envp);
-	while (command && ft_strncmp(command, "exit", 4))
-	{
-		pid = child_process();
-		if (pid == 0)
-			identify_exec(command, envp);
-		wait(NULL);
-
-		free(command);
-		command = prompt(envp);
-	}
-
-	if (!command)
-		ft_putchar('\n');
-	free(command);
-
-	return (0);
+	if (!ft_strncmp(command, "echo", 4))
+		echo(command, envp);
+	if (!ft_strncmp(command, "cd", 2))
+		ft_printf("execução cd\n");
+	else
+		execve_command(ft_split(command, ' '), envp);
 }

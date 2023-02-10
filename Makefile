@@ -6,7 +6,7 @@
 #    By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/09 00:10:02 by jlucas-s          #+#    #+#              #
-#    Updated: 2023/01/24 20:53:25 by jlucas-s         ###   ########.fr        #
+#    Updated: 2023/02/08 20:42:21 by jlucas-s         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,10 +24,12 @@ NOCOLOR =		\033[0m
 LIBFTPATH =		./lib
 LIBFT =			./lib/libft.a
 
-SRCS =			src/main.c				\
-				src/commands/exec.c		\
-				src/fork.c				\
-				src/terminal_line.c		\
+SRCS =			src/main.c					\
+				src/fork.c					\
+				src/terminal_line.c			\
+				src/identify_exec.c			\
+				src/commands/execve.c		\
+				src/commands/echo/echo.c	\
 
 OBJS_DIR = 		./objects
 OBJS =			${SRCS:%.c=$(OBJS_DIR)/%.o}
