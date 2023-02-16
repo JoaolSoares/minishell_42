@@ -6,20 +6,21 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 19:09:40 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/02/10 18:36:02 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/02/15 22:46:04 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static void	free_split(char **split)
+void	free_split(char **split, int opt)
 {
 	int	i;
 
 	i = 0;
 	while (split[i])
 		free(split[i++]);
-	free(split);
+	if (opt == 1)
+		free(split);
 }
 
 static char	**find_paths(char **envp)
@@ -50,7 +51,7 @@ void	execve_command(char **command, char **envp)
 		free(path);
 	}
 	ft_printf("%s: Command Not Found\n", command[0]);
-	free_split(command);
+	free_split(command, 1);
 	free(possible_paths);
 	exit (30);
 }

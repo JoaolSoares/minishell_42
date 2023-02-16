@@ -6,7 +6,7 @@
 #    By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/09 00:10:02 by jlucas-s          #+#    #+#              #
-#    Updated: 2023/02/08 20:42:21 by jlucas-s         ###   ########.fr        #
+#    Updated: 2023/02/15 20:47:33 by jlucas-s         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ SRCS =			src/main.c					\
 				src/identify_exec.c			\
 				src/commands/execve.c		\
 				src/commands/echo/echo.c	\
+				src/commands/cd/cd_01.c	\
 
 OBJS_DIR = 		./objects
 OBJS =			${SRCS:%.c=$(OBJS_DIR)/%.o}

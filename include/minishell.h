@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 16:12:33 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/02/13 22:21:12 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/02/15 22:46:15 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include <sys/wait.h>
 #include <readline/readline.h>
 #include <readline/history.h>
+#include <dirent.h>
 
 //	STRUCTS
 // typedef struct s_data
@@ -32,9 +33,14 @@ char	*prompt(char *envp[]);
 
 pid_t	child_process(void);
 
+
+
+void	free_split(char **split, int opt);
+
 void	identify_exec(char *command, char **envp);
 
 void	execve_command(char **command, char **envp);
 void	echo(char *command);
+void	cd(char *command, char **envp);
 
 #endif
