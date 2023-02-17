@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 16:12:33 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/02/16 19:05:55 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/02/16 23:35:59 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,6 @@ void	identify_exec(char *command, char **envp);
 
 void	execve_command(char **command, char **envp);
 void	echo(char *command);
-void	cd(char *command, char **envp);
+int		cd(char *command, char **envp);
 
 #endif
