@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 16:44:51 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/02/16 23:42:39 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/02/17 15:25:29 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,10 @@ int cd(char *command, char *envp[])
 
     if((command[i] == '~' || command[i] == '/' ) && (ft_strlen(command) - i - 1) > 4)
         path = make_path(ft_strdup(getenv("HOME")), command + i);
-    else
+    else if (!ft_strncmp(command + i, "~", 2) || !ft_strncmp(command + i, "~/", 3))
         path = ft_strdup(getenv("HOME"));
+    else
+        path = ft_strdup(command + i);
 
     dir = opendir(path);
     if (!dir)
@@ -70,6 +72,7 @@ int cd(char *command, char *envp[])
     }
 
     chdir(path);
+    
     update_pwd(envp, path);
 
     free(path);
