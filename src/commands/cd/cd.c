@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 16:44:51 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/02/17 15:25:29 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/02/21 17:45:34 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,14 @@ static void    update_pwd(char *envp[], char *new_pwd)
     {
         if (!ft_strncmp(envp[i], "PWD=", 4))
         {
-            join = ft_strjoin(ft_strdup("PWD="), new_pwd);
+            if (new_pwd[0] != '/')
+                join = ft_strjoin(ft_strjoin(ft_strdup("PWD="), "/"), new_pwd);
+            else
+                join = ft_strjoin(ft_strdup("PWD="), new_pwd);
+            if (join[ft_strlen(join) - 1] == '/')
+                join[ft_strlen(join) - 1] = 0;
             // free(envp[i]);   // Resolver essa pica
             envp[i] = ft_strdup(join);
-            new_pwd[0] = 'a';
             free(join);
             break ;
         }
@@ -47,6 +51,12 @@ char    *make_path(char *home_path, char *aux_path)
     return (final_path);
 }
 
+// void take_dots(char *path)
+// {
+
+    
+// }
+
 int cd(char *command, char *envp[])
 {
     DIR*    dir;
@@ -58,7 +68,8 @@ int cd(char *command, char *envp[])
 
     if((command[i] == '~' || command[i] == '/' ) && (ft_strlen(command) - i - 1) > 4)
         path = make_path(ft_strdup(getenv("HOME")), command + i);
-    else if (!ft_strncmp(command + i, "~", 2) || !ft_strncmp(command + i, "~/", 3))
+    else if (!ft_strncmp(command + i, "~", 2) || !ft_strncmp(command + i, "~/", 3) \
+            || !ft_strncmp(command + i, "", 1))
         path = ft_strdup(getenv("HOME"));
     else
         path = ft_strdup(command + i);
@@ -72,6 +83,8 @@ int cd(char *command, char *envp[])
     }
 
     chdir(path);
+    
+    // take_dots(path);
     
     update_pwd(envp, path);
 

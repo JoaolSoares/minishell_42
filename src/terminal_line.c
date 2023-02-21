@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 20:36:37 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/02/16 19:40:52 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/02/21 17:33:39 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@ static void	print_terminal_line(char *envp[])
 	while (envp[++i])
 		if (!ft_strncmp(envp[i], "PWD=", 4))
 		{
-			ft_printf("%s:~%s\n$> ", "Minishell", envp[i] + 4);
+			ft_printf("Minishell:~");
+			if (ft_strncmp(envp[i] + 4, getenv("HOME"), ft_strlen(getenv("HOME")) + 1))	
+				ft_printf("%s ", envp[i] + 4);
+			ft_printf("\n$> ");
 			break ;
 		}
 }
