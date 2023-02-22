@@ -76,7 +76,7 @@ int cd(char *command, char *envp[])
         path = ft_strdup(getenv("HOME"));
     else if (command[i] == '/')
         path = ft_strdup(command + i);
-    else if ((command[i] == '.' && command[i + 1] != '.') || (command[i] == '.' && command[i + 1] == '/'))
+    else if ((command[i] == '.' && command[i + 1] != '.') || (command[i] == '.' && command[i + 1] == '/')) // falta tratar  "cd diretorio/diretorio" procurando apartir do diretorio atual.
     {
         path = ft_strdup(command + i);
         dot = 1;
@@ -88,7 +88,6 @@ int cd(char *command, char *envp[])
     }
     else 
         path = ft_strdup(getenv("HOME"));
-
     dir = opendir(path);
     if (!dir)
     {
