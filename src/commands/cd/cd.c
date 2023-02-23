@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 16:44:51 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/02/21 17:45:34 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/02/23 19:28:57 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void    update_pwd(char *envp[], char *new_pwd)
                 join = ft_strjoin(ft_strdup("PWD="), new_pwd);
             if (join[ft_strlen(join) - 1] == '/')
                 join[ft_strlen(join) - 1] = 0;
-            // free(envp[i]);   // Resolver essa pica
+            free(envp[i]);
             envp[i] = ft_strdup(join);
             free(join);
             break ;
@@ -36,7 +36,7 @@ static void    update_pwd(char *envp[], char *new_pwd)
     }
 }
 
-char    *make_path(char *home_path, char *aux_path)
+static char    *home_path(char *home_path, char *aux_path)
 {
     char    *final_path;
 
@@ -51,28 +51,31 @@ char    *make_path(char *home_path, char *aux_path)
     return (final_path);
 }
 
-// void take_dots(char *path)
-// {
-
-    
-// }
-
-int cd(char *command, char *envp[])
+static char    *get_path(char *command)
 {
-    DIR*    dir;
-    char    *path;
     int     i;
+    char    *path;
 
     i = 1;
     while(command[++i] == ' ') ;
 
     if((command[i] == '~' || command[i] == '/' ) && (ft_strlen(command) - i - 1) > 4)
-        path = make_path(ft_strdup(getenv("HOME")), command + i);
+        path = home_path(ft_strdup(getenv("HOME")), command + i);
     else if (!ft_strncmp(command + i, "~", 2) || !ft_strncmp(command + i, "~/", 3) \
             || !ft_strncmp(command + i, "", 1))
         path = ft_strdup(getenv("HOME"));
     else
-        path = ft_strdup(command + i);
+       path = ft_strdup(command + i);
+    return (path);
+}
+
+int cd(char *command, char *envp[])
+{
+    DIR*    dir;
+    char    *path;
+    char    buffer[256];
+
+    path = get_path(command);
 
     dir = opendir(path);
     if (!dir)
@@ -83,10 +86,8 @@ int cd(char *command, char *envp[])
     }
 
     chdir(path);
-    
-    // take_dots(path);
-    
-    update_pwd(envp, path);
+	getcwd(buffer, 256);
+    update_pwd(envp, buffer);
 
     free(path);
     closedir(dir);
