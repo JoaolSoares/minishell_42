@@ -6,7 +6,7 @@
 #    By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/09 00:10:02 by jlucas-s          #+#    #+#              #
-#    Updated: 2023/02/23 18:38:50 by jlucas-s         ###   ########.fr        #
+#    Updated: 2023/02/24 19:33:56 by jlucas-s         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,15 +24,17 @@ NOCOLOR =		\033[0m
 LIBFTPATH =		./lib
 LIBFT =			./lib/libft.a
 
-SRCS =			src/main.c					\
-				src/fork.c					\
-				src/terminal_line.c			\
-				src/allocs.c				\
-				src/identify_exec.c			\
-				src/commands/execve.c		\
-				src/commands/echo/echo.c	\
-				src/commands/cd/cd.c		\
+SRCS =			src/main.c						\
+				src/linked_list.c				\
+				src/fork.c						\
+				src/terminal_line.c				\
+				src/allocs.c					\
+				src/identify_exec.c				\
+				src/commands/execve.c			\
+				src/commands/echo/echo.c		\
+				src/commands/cd/cd.c			\
 				src/commands/unset/unset.c		\
+				src/commands/export/export.c	\
 
 OBJS_DIR = 		./objects
 OBJS =			${SRCS:%.c=$(OBJS_DIR)/%.o}
@@ -63,6 +65,6 @@ run: ${NAME}
 	./$(NAME)
 
 valgrind: ${NAME}
-	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME)
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(NAME)
 
 .PHONY: all clean fclean run valgrind

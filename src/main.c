@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 16:15:55 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/02/23 19:31:05 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/02/24 19:03:03 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,18 @@
 int	main(int argc, char *argv[], char *envp[])
 {
 	char	*command;
-	char	**env;
+	t_node	*env;
 
 	if (argc > 1 && argv)
 		exit (1);
 
-	env = envp_copy(envp);
-	// envp_malloc(envp);
+	env = NULL;
+	envp_linked_list(&env, envp);
 
 	command = prompt();
 	while (command && ft_strncmp(command, "exit", 4))
 	{
-		identify_exec(command, env);
+		identify_exec(command, env, envp);
 		wait(NULL);
 
 		free(command);
@@ -37,7 +37,7 @@ int	main(int argc, char *argv[], char *envp[])
 		ft_putchar('\n');
 
 	free(command);
-	free_split(env, 1);
+	free_linked_list(env);
 
 	return (0);
 }

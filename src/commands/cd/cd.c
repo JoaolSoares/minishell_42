@@ -6,21 +6,21 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 16:44:51 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/02/23 19:28:57 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/02/24 19:12:42 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
 
-static void    update_pwd(char *envp[], char *new_pwd)
+static void    update_pwd(t_node *env, char *new_pwd)
 {
-    int     i;
+    t_node  *aux;
     char    *join;
 
-    i = -1;
-    while (envp[++i])
+    aux = env;
+    while (aux->next)
     {
-        if (!ft_strncmp(envp[i], "PWD=", 4))
+        if (!ft_strncmp(aux->content, "PWD=", 4))
         {
             if (new_pwd[0] != '/')
                 join = ft_strjoin(ft_strjoin(ft_strdup("PWD="), "/"), new_pwd);
@@ -28,14 +28,15 @@ static void    update_pwd(char *envp[], char *new_pwd)
                 join = ft_strjoin(ft_strdup("PWD="), new_pwd);
             if (join[ft_strlen(join) - 1] == '/')
                 join[ft_strlen(join) - 1] = 0;
-            free(envp[i]);
-            envp[i] = ft_strdup(join);
+            free(aux->content);
+            aux->content = ft_strdup(join);
             free(join);
             break ;
         }
+        aux = aux->next;
     }
 }
-
+        
 static char    *home_path(char *home_path, char *aux_path)
 {
     char    *final_path;
@@ -69,7 +70,7 @@ static char    *get_path(char *command)
     return (path);
 }
 
-int cd(char *command, char *envp[])
+int cd(char *command, t_node *env)
 {
     DIR*    dir;
     char    *path;
@@ -87,7 +88,7 @@ int cd(char *command, char *envp[])
 
     chdir(path);
 	getcwd(buffer, 256);
-    update_pwd(envp, buffer);
+    update_pwd(env, buffer);
 
     free(path);
     closedir(dir);
