@@ -6,11 +6,11 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 16:44:51 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/02/24 19:12:42 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/02/27 18:31:02 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../include/minishell.h"
+#include "../../include/minishell.h"
 
 static void    update_pwd(t_node *env, char *new_pwd)
 {
@@ -36,48 +36,34 @@ static void    update_pwd(t_node *env, char *new_pwd)
         aux = aux->next;
     }
 }
-        
+
 static char    *home_path(char *home_path, char *aux_path)
 {
-    char    *final_path;
-
     if(aux_path[0] == '~')
-        final_path = ft_strjoin(ft_strjoin(home_path, "/"), aux_path + 2);
-    else if(aux_path[0] == '/')
-    {
-        final_path = ft_strdup(aux_path);
-        free(home_path);
-    }
-
-    return (final_path);
+        return (ft_strjoin(ft_strjoin(home_path, "/"), aux_path + 2));
+    free(home_path);
+    return (ft_strdup(aux_path));
 }
 
-static char    *get_path(char *command)
+static char    *get_path(char **command)
 {
-    int     i;
-    char    *path;
-
-    i = 1;
-    while(command[++i] == ' ') ;
-
-    if((command[i] == '~' || command[i] == '/' ) && (ft_strlen(command) - i - 1) > 4)
-        path = home_path(ft_strdup(getenv("HOME")), command + i);
-    else if (!ft_strncmp(command + i, "~", 2) || !ft_strncmp(command + i, "~/", 3) \
-            || !ft_strncmp(command + i, "", 1))
-        path = ft_strdup(getenv("HOME"));
+    if (!command[1])
+        return (ft_strdup(getenv("HOME")));
+    else if((command[1][0] == '~' || command[1][0] == '/' ) && (ft_strlen(command[0])) > 1)
+        return (home_path(ft_strdup(getenv("HOME")), command[1]));
+    else if (!ft_strncmp(command[1], "~", 2) || !ft_strncmp(command[1], "~/", 3))
+        return (ft_strdup(getenv("HOME")));
     else
-       path = ft_strdup(command + i);
-    return (path);
+       return( ft_strdup(command[1]));
 }
 
-int cd(char *command, t_node *env)
+int	cd(char **command, t_node *env)
 {
-    DIR*    dir;
-    char    *path;
-    char    buffer[256];
+	DIR*    dir;
+	char    *path;
+	char    buffer[256];
 
     path = get_path(command);
-
     dir = opendir(path);
     if (!dir)
     {

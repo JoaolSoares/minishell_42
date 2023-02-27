@@ -6,13 +6,13 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 18:34:27 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/02/24 19:32:04 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/02/27 18:53:48 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../include/minishell.h"
+#include "../../include/minishell.h"
 
-static void	unset_variable(t_node *env, char *unseted)
+static void	unset_variable(t_node *env, char *unseted_var)
 {
 	t_node  *aux;
 	t_node	*swap_node;
@@ -20,7 +20,7 @@ static void	unset_variable(t_node *env, char *unseted)
     aux = env;
     while (aux->next)
     {
-        if (!ft_strncmp(aux->next->content, unseted, ft_strlen(unseted)))
+        if (!ft_strncmp(aux->next->content, unseted_var, ft_strlen(unseted_var)))
         {
 			swap_node = aux->next->next;
 			free(aux->next->content);
@@ -32,20 +32,12 @@ static void	unset_variable(t_node *env, char *unseted)
     }
 }
 
-
-int	unset(char *command, t_node *env)
+int	unset(char **command, t_node *env)
 {
 	int		i;
-	char	*unseted;
 
-	i = 5;
-	while (command[++i] == ' ') ;
-	unseted = ft_strdup(command + i);
-
-	///verificar se a variavel existe msm aqui
-
-	unset_variable(env, unseted);
-
-	free(unseted);
+	i = 0;
+	while (command[++i])
+		unset_variable(env, command[i]);		
 	return (0);
-}
+} 

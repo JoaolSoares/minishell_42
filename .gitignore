@@ -2,3 +2,4 @@
 objects
 *.o
 minishell
+tests
