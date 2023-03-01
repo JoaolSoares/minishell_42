@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dofranci <dofranci@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 16:44:51 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/02/27 18:31:02 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/02/28 22:38:36 by dofranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static void    update_pwd(t_node *env, char *new_pwd)
+static void    update_pwd(t_node *env, char *new_path, char *updater)
 {
     t_node  *aux;
     char    *join;
@@ -20,12 +20,12 @@ static void    update_pwd(t_node *env, char *new_pwd)
     aux = env;
     while (aux->next)
     {
-        if (!ft_strncmp(aux->content, "PWD=", 4))
+        if (!ft_strncmp(aux->content, updater, ft_strlen(updater)))
         {
-            if (new_pwd[0] != '/')
-                join = ft_strjoin(ft_strjoin(ft_strdup("PWD="), "/"), new_pwd);
+            if (new_path[0] != '/')
+                join = ft_strjoin(ft_strjoin(ft_strdup(updater), "/"), new_path);
             else
-                join = ft_strjoin(ft_strdup("PWD="), new_pwd);
+                join = ft_strjoin(ft_strdup(updater), new_path);
             if (join[ft_strlen(join) - 1] == '/')
                 join[ft_strlen(join) - 1] = 0;
             free(aux->content);
@@ -45,25 +45,53 @@ static char    *home_path(char *home_path, char *aux_path)
     return (ft_strdup(aux_path));
 }
 
-static char    *get_path(char **command)
+static char *hyphen_path(t_node *env)
 {
+    t_node *aux;
+    
+    aux = env;
+    while (aux->next)
+    {
+        if (!ft_strncmp(aux->content, "OLDPWD=", 7))
+        {
+            ft_printf("%s\n", aux->content + 7);
+            return (ft_strdup(aux->content + 7));
+        }
+        aux = aux->next;
+    }
+    return (NULL);
+}
+
+static char    *get_path(char **command, t_node *env)
+{
+
     if (!command[1])
         return (ft_strdup(getenv("HOME")));
     else if((command[1][0] == '~' || command[1][0] == '/' ) && (ft_strlen(command[0])) > 1)
         return (home_path(ft_strdup(getenv("HOME")), command[1]));
     else if (!ft_strncmp(command[1], "~", 2) || !ft_strncmp(command[1], "~/", 3))
         return (ft_strdup(getenv("HOME")));
+    else if (!ft_strncmp(command[1], "-", 2))
+        return ((hyphen_path(env)));
     else
-       return( ft_strdup(command[1]));
+       return (ft_strdup(command[1]));
+    return (0);
 }
 
 int	cd(char **command, t_node *env)
 {
 	DIR*    dir;
 	char    *path;
-	char    buffer[256];
+	char    buffer[SIZE_PATH];
+    char    oldbuffer[SIZE_PATH];
 
-    path = get_path(command);
+    getcwd(oldbuffer, SIZE_PATH);
+    path = get_path(command, env);
+    // if(!path)
+    // {
+    //     ft_printf("Minishell: cd: OLDPWD not set\n");
+    //     return(1);
+    // }
     dir = opendir(path);
     if (!dir)
     {
@@ -73,10 +101,10 @@ int	cd(char **command, t_node *env)
     }
 
     chdir(path);
-	getcwd(buffer, 256);
-    update_pwd(env, buffer);
-
+	getcwd(buffer, SIZE_PATH);
+    update_pwd(env, buffer, "PWD=");
+    update_pwd(env, oldbuffer, "OLDPWD=");
     free(path);
     closedir(dir);
     return (0);
-}   
+}  

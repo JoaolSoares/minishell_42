@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dofranci <dofranci@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 16:12:33 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/02/27 18:03:30 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/02/28 21:38:39 by dofranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <dirent.h>
+
+// DEFINES //
+# define SIZE_PATH 256
 
 //  STRUCTS  //
 typedef struct	s_node
