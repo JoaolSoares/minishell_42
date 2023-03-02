@@ -6,7 +6,7 @@
 /*   By: dofranci <dofranci@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 16:12:33 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/02/28 21:38:39 by dofranci         ###   ########.fr       */
+/*   Updated: 2023/03/01 21:52:28 by dofranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ void	identify_exec(char *command, t_node *env, char **envp);
 void	execve_command(char **command, char **envp);
 void	echo(char **command);
 int		cd(char **command, t_node *env);
+void    update_pwd(t_node *env, char *new_path, char *updater);
+void	update_oldpwd(t_node *env, char *new_path);
 
 int		unset(char **command, t_node *env);
 void	export(char **command, t_node *env);

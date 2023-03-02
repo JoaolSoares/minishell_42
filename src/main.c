@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dofranci <dofranci@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 16:15:55 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/02/24 19:03:03 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/03/01 22:59:18 by dofranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int	main(int argc, char *argv[], char *envp[])
 	{
 		identify_exec(command, env, envp);
 		wait(NULL);
-
 		free(command);
 		command = prompt();
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   identify_exec.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dofranci <dofranci@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 16:35:50 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/02/27 19:20:14 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/03/01 22:55:29 by dofranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ char	**split_command(char *command)
 void	identify_exec(char *command, t_node *env, char **envp)
 {
 	pid_t	pid;
+	char	**split_cmd;
 
-	char	**split_cmd = split_command(command);
-
+	split_cmd = split_command(command);
 	if (!ft_strncmp(split_cmd[0], "cd", ft_strlen(split_cmd[0]) + 1))
 		cd(split_cmd, env);
 	else if (!ft_strncmp(split_cmd[0], "echo", ft_strlen(split_cmd[0]) + 1))
@@ -56,7 +56,6 @@ void	identify_exec(char *command, t_node *env, char **envp)
 		pid = child_process();
 		if (pid == 0)
 			execve_command(split_cmd, envp);
-	}		//sugestão: no futuro fazer uma função que traduz nossa linked pra uma mtx
-
+	}//sugestão: no futuro fazer uma função que traduz nossa linked pra uma mtx
 	free_split(split_cmd);
 }

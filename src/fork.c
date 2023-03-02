@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fork.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dofranci <dofranci@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 19:58:20 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/01/24 19:25:47 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/03/01 22:58:40 by dofranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ pid_t	child_process(void)
 	pid = fork();
 	if (pid < 0)
 		exit (20);
-
 	return (pid);
 }
 
