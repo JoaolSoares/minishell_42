@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   linked_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dofranci <dofranci@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 18:56:46 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/02/24 18:57:30 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/03/01 22:58:31 by dofranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,11 @@
 
 void	free_linked_list(t_node *root)
 {
-	t_node *aux;
-	t_node *aux_next;
+	t_node	*aux;
+	t_node	*aux_next;
 
 	aux = root;
 	aux_next = root->next;
-
 	while (aux->next)
 	{
 		free(aux->content);
@@ -34,19 +33,17 @@ void	free_linked_list(t_node *root)
 
 void	insert_in_list(t_node **node, char *content)
 {
-	t_node *new_node;
-	t_node *aux;
+	t_node	*new_node;
+	t_node	*aux;
 
 	new_node = (t_node *)malloc(sizeof(t_node));
 	new_node->content = ft_strdup(content);
 	new_node->next = NULL;
-
 	if (!*node)
 	{
 		*node = new_node;
 		return ;
 	}
-	
 	aux = *node;
 	while (aux->next)
 		aux = aux->next;
@@ -64,7 +61,7 @@ void	envp_linked_list(t_node **root, char **envp)
 
 void	print_linked_list(t_node *root)
 {
-	t_node *aux;
+	t_node	*aux;
 
 	aux = root;
 	while (aux)

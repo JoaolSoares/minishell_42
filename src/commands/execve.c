@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execve.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dofranci <dofranci@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 19:09:40 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/02/27 16:51:00 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/03/01 22:53:13 by dofranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,23 +34,39 @@ static char	**find_paths(char **envp)
 	return (paths);
 }
 
+static char	**absolut_path(char **path)
+{
+	char	**command;
+	char	*temp;
+
+	temp = ft_strdup(ft_strrchr(path[0], '/'));
+	free_split(path);
+	command = ft_split(temp, ' ');
+	free(temp);
+	return (command);
+}
+
 void	execve_command(char **command, char **envp)
 {
 	char	**possible_paths;
+	char	*temp;
 	char	*path;
 	int		i;
 
+	temp = ft_strdup(command[0]);
+	if (ft_strchr(command[0], '/'))
+		command = absolut_path(command);
 	possible_paths = find_paths(envp);
-
 	i = -1;
-	while(possible_paths[++i])
+	while (possible_paths[++i])
 	{
 		path = ft_strjoin(ft_strjoin(possible_paths[i], "/"), command[0]);
 		execve(path, command, envp);
 		free(path);
 	}
-	ft_printf("%s: Command Not Found\n", command[0]);
+	ft_printf("%s: Command Not Found\n", temp);
 	free_split(command);
 	free(possible_paths);
+	free(temp);
 	exit (30);
 }

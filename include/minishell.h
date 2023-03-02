@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dofranci <dofranci@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 16:12:33 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/02/27 18:03:30 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/03/01 21:52:28 by dofranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <dirent.h>
+
+// DEFINES //
+# define SIZE_PATH 256
 
 //  STRUCTS  //
 typedef struct	s_node
@@ -50,6 +53,8 @@ void	identify_exec(char *command, t_node *env, char **envp);
 void	execve_command(char **command, char **envp);
 void	echo(char **command);
 int		cd(char **command, t_node *env);
+void    update_pwd(t_node *env, char *new_path, char *updater);
+void	update_oldpwd(t_node *env, char *new_path);
 
 int		unset(char **command, t_node *env);
 void	export(char **command, t_node *env);

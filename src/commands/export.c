@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dofranci <dofranci@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 19:33:17 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/02/27 19:20:08 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/03/01 22:51:42 by dofranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	export(char **command, t_node *env)
 {
 	int		i;
 	char	*join;
-	
+
 	i = 1;
 	while (command[i])
 	{
@@ -25,7 +25,8 @@ void	export(char **command, t_node *env)
 			ft_printf("%s :is invalid\n", command[i]);
 			break ;
 		}
-		if (ft_strlen(command[i]) == (ft_strlen_until(command[i], '=') + 1) && command[i + 1])
+		if (ft_strlen(command[i]) == (ft_strlen_until(command[i], '=') + 1) \
+		&& command[i + 1])
 		{
 			join = ft_strjoin(ft_strdup(command[i]), command[i + 1]);
 			insert_in_list(&env, join);

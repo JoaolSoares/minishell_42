@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+         #
+#    By: dofranci <dofranci@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/09 00:10:02 by jlucas-s          #+#    #+#              #
-#    Updated: 2023/02/27 14:08:23 by jlucas-s         ###   ########.fr        #
+#    Updated: 2023/03/01 20:22:30 by dofranci         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,7 @@ SRCS =			src/main.c					\
 				src/identify_exec.c			\
 				src/commands/execve.c		\
 				src/commands/echo.c			\
+				src/commands/cd_utils.c		\
 				src/commands/cd.c			\
 				src/commands/unset.c		\
 				src/commands/export.c		\
