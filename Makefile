@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dofranci <dofranci@student.42sp.org.br>    +#+  +:+       +#+         #
+#    By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/09 00:10:02 by jlucas-s          #+#    #+#              #
-#    Updated: 2023/03/01 20:22:30 by dofranci         ###   ########.fr        #
+#    Updated: 2023/03/03 16:36:54 by jlucas-s         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ LIBFT =			./lib/libft.a
 
 SRCS =			src/main.c					\
 				src/linked_list.c			\
-				src/fork.c					\
+				src/free.c					\
 				src/terminal_line.c			\
 				src/identify_exec.c			\
 				src/commands/execve.c		\

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dofranci <dofranci@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 16:12:33 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/03/01 21:52:28 by dofranci         ###   ########.fr       */
+/*   Updated: 2023/03/03 16:42:32 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,31 +32,39 @@ typedef struct	s_node
 
 }	t_node;
 
+typedef struct	s_lists
+{
+	t_node	*env;
+	t_node	*history;
+
+}	t_lists;
 
 //  FUNCTIONS  //
 
 char	*prompt();
 
-pid_t	child_process(void);
-
 //  LINKED LIST  //
 void	envp_linked_list(t_node **root, char **envp);
 void	insert_in_list(t_node **node, char *content);
-void	free_linked_list(t_node *root);
-void	print_linked_list(t_node *root);
+void	add_in_history(t_node **history, char *command);
+int		print_linked_list(t_node *root);
 
+//  FREE  //
 void	free_split(char **split);
+void	free_all(t_lists *lists, char *command);
 
 //  COMMANDS  //
-void	identify_exec(char *command, t_node *env, char **envp);
+void	identify_exec(char *command, t_lists *lists, char **envp, int *ret_val);
 
-void	execve_command(char **command, char **envp);
-void	echo(char **command);
+int		execve_return(char **split_cmd, char **envp);
+
+int		echo(char **command, t_node *env, int *return_value);
+
 int		cd(char **command, t_node *env);
-void    update_pwd(t_node *env, char *new_path, char *updater);
+void	update_pwd(t_node *env, char *new_path, char *updater);
 void	update_oldpwd(t_node *env, char *new_path);
 
 int		unset(char **command, t_node *env);
-void	export(char **command, t_node *env);
+int		export(char **command, t_node *env);
 
 #endif

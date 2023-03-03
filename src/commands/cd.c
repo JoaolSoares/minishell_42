@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dofranci <dofranci@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 16:44:51 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/03/01 22:48:10 by dofranci         ###   ########.fr       */
+/*   Updated: 2023/03/02 18:36:32 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	cd(char **command, t_node *env)
 	{
 		ft_printf("-minishell: cd: %s: No such file or directory\n", path);
 		free(path);
-		return (1);
+		return (2);
 	}
 	update_pwd(env, buffer, "OLDPWD=");
 	chdir(path);

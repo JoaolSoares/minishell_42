@@ -3,24 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   execve.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dofranci <dofranci@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 19:09:40 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/03/01 22:53:13 by dofranci         ###   ########.fr       */
+/*   Updated: 2023/03/03 16:36:29 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-void	free_split(char **split)
-{
-	int	i;
-
-	i = -1;
-	while (split[++i])
-		free(split[i]);
-	free(split);
-}
 
 static char	**find_paths(char **envp)
 {
@@ -46,7 +36,7 @@ static char	**absolut_path(char **path)
 	return (command);
 }
 
-void	execve_command(char **command, char **envp)
+static int	execve_command(char **command, char **envp)
 {
 	char	**possible_paths;
 	char	*temp;
@@ -68,5 +58,40 @@ void	execve_command(char **command, char **envp)
 	free_split(command);
 	free(possible_paths);
 	free(temp);
-	exit (30);
+	return (1);
+}
+
+static pid_t	child_process(void)
+{
+	pid_t	pid;
+
+	pid = fork();
+	if (pid < 0)
+		exit (20);
+	return (pid);
+}
+
+int	execve_return(char **split_cmd, char **envp)
+{
+	pid_t	pid;
+	int		pipe_fd[2];
+	int		return_value;
+
+	if (pipe(pipe_fd) < 0)
+		exit (1);
+	pid = child_process();
+	if (pid == 0)
+	{
+		close(pipe_fd[0]);
+		return_value = execve_command(split_cmd, envp);
+		write(pipe_fd[1], &return_value, sizeof(int));
+		close(pipe_fd[1]);
+		exit(1);
+	}
+	wait(NULL);
+	close(pipe_fd[1]);
+	return_value = 0;
+	read(pipe_fd[0], &return_value, sizeof(int));
+	close(pipe_fd[0]);
+	return (return_value);
 }

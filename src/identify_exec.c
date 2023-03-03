@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   identify_exec.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dofranci <dofranci@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 16:35:50 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/03/01 22:55:29 by dofranci         ###   ########.fr       */
+/*   Updated: 2023/03/03 16:42:05 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,27 +35,24 @@ char	**split_command(char *command)
 	return (ft_split(command, 4));
 }
 
-void	identify_exec(char *command, t_node *env, char **envp)
+void	identify_exec(char *command, t_lists *lists, char **envp, int *ret_val)
 {
-	pid_t	pid;
 	char	**split_cmd;
 
 	split_cmd = split_command(command);
 	if (!ft_strncmp(split_cmd[0], "cd", ft_strlen(split_cmd[0]) + 1))
-		cd(split_cmd, env);
+		*ret_val = cd(split_cmd, lists->env);
 	else if (!ft_strncmp(split_cmd[0], "echo", ft_strlen(split_cmd[0]) + 1))
-		echo(split_cmd);
+		*ret_val = echo(split_cmd, lists->env, ret_val);
 	else if (!ft_strncmp(split_cmd[0], "unset", ft_strlen(split_cmd[0]) + 1))
-		unset(split_cmd, env);
+		*ret_val = unset(split_cmd, lists->env);
 	else if (!ft_strncmp(split_cmd[0], "export", ft_strlen(split_cmd[0]) + 1))
-		export(split_cmd, env);
+		*ret_val = export(split_cmd, lists->env);
 	else if (!ft_strncmp(split_cmd[0], "env", ft_strlen(split_cmd[0]) + 1))
-		print_linked_list(env);
-	else
-	{
-		pid = child_process();
-		if (pid == 0)
-			execve_command(split_cmd, envp);
-	}//sugestão: no futuro fazer uma função que traduz nossa linked pra uma mtx
+		*ret_val = print_linked_list(lists->env);
+	else if (!ft_strncmp(split_cmd[0], "history", ft_strlen(split_cmd[0]) + 1))
+		*ret_val = print_linked_list(lists->history);
+	else	//sugestão: no futuro fazer uma função que traduz nossa linked pra uma mtx
+		*ret_val = execve_return(split_cmd, envp);
 	free_split(split_cmd);
 }

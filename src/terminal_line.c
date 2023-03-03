@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   terminal_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dofranci <dofranci@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 20:36:37 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/03/01 22:56:37 by dofranci         ###   ########.fr       */
+/*   Updated: 2023/03/03 14:37:09 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,10 @@ static void	print_terminal_line(void)
 	}
 	else
 		ft_putchar('~');
-	ft_printf("\n$>");
 }
 
 char	*prompt(void)
 {
 	print_terminal_line();
-	return (readline(""));
+	return (readline("\n$>"));
 }

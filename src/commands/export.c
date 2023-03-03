@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dofranci <dofranci@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 19:33:17 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/03/01 22:51:42 by dofranci         ###   ########.fr       */
+/*   Updated: 2023/03/02 16:30:09 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	export(char **command, t_node *env)
+int	export(char **command, t_node *env)
 {
 	int		i;
 	char	*join;
@@ -35,5 +35,6 @@ void	export(char **command, t_node *env)
 		}
 		else
 			insert_in_list(&env, command[i++]);
-	}	
+	}
+	return (0);
 }

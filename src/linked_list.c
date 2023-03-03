@@ -3,32 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   linked_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dofranci <dofranci@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 18:56:46 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/03/01 22:58:31 by dofranci         ###   ########.fr       */
+/*   Updated: 2023/03/03 16:40:45 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	free_linked_list(t_node *root)
+void	add_in_history(t_node **history, char *command)
 {
-	t_node	*aux;
-	t_node	*aux_next;
+	char		*join;
+	char		*num;
+	static int	i;
 
-	aux = root;
-	aux_next = root->next;
-	while (aux->next)
-	{
-		free(aux->content);
-		free(aux);
-		aux = aux_next;
-		aux_next = aux->next;
-	}
-	free(aux->content);
-	free(aux);
-	free(aux_next);
+	if (i == 0)
+		*history = NULL;
+	num = ft_itoa(++i);
+	join = ft_strjoin(ft_strjoin(num, " "), command);
+	insert_in_list(history, join);
+	free(join);
 }
 
 void	insert_in_list(t_node **node, char *content)
@@ -54,12 +49,13 @@ void	envp_linked_list(t_node **root, char **envp)
 {
 	int		i;
 
+	*root = NULL;
 	i = -1;
 	while (envp[++i])
 		insert_in_list(root, envp[i]);
 }
 
-void	print_linked_list(t_node *root)
+int	print_linked_list(t_node *root)
 {
 	t_node	*aux;
 
@@ -69,4 +65,5 @@ void	print_linked_list(t_node *root)
 		ft_printf("%s\n", aux->content);
 		aux = aux->next;
 	}
+	return (0);
 }
