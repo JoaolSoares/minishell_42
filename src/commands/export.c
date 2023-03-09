@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 19:33:17 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/03/02 16:30:09 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/03/08 21:45:01 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,16 @@ int	export(char **command, t_node *env)
 		&& command[i + 1])
 		{
 			join = ft_strjoin(ft_strdup(command[i]), command[i + 1]);
+			unset_variable(env, command[i]);
 			insert_in_list(&env, join);
 			i += 2;
 			free(join);
 		}
-		else
+		else			
+		{
+			unset_variable( env, command[i] + (ft_strlen_until(command[i], '=') + 1));
 			insert_in_list(&env, command[i++]);
+		}
 	}
 	return (0);
 }

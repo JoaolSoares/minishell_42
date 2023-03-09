@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 18:56:46 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/03/03 16:40:45 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/03/08 21:32:58 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ void	add_in_history(t_node **history, char *command)
 	char		*num;
 	static int	i;
 
-	if (i == 0)
-		*history = NULL;
 	num = ft_itoa(++i);
 	join = ft_strjoin(ft_strjoin(num, " "), command);
 	insert_in_list(history, join);

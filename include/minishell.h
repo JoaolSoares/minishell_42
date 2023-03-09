@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 16:12:33 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/03/03 16:42:32 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/03/08 21:43:07 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,9 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <dirent.h>
+#include <signal.h>
 
-// DEFINES //
+//  DEFINES  //
 # define SIZE_PATH 256
 
 //  STRUCTS  //
@@ -40,8 +41,9 @@ typedef struct	s_lists
 }	t_lists;
 
 //  FUNCTIONS  //
-
+//  PROMPT  //
 char	*prompt();
+void	print_terminal_line(void);
 
 //  LINKED LIST  //
 void	envp_linked_list(t_node **root, char **envp);
@@ -49,12 +51,21 @@ void	insert_in_list(t_node **node, char *content);
 void	add_in_history(t_node **history, char *command);
 int		print_linked_list(t_node *root);
 
+//  FORK  //
+pid_t	child_process(void);
+
+//  PIPE  //
+int	pipe_exec(char **command, t_node *env);
+
 //  FREE  //
 void	free_split(char **split);
 void	free_all(t_lists *lists, char *command);
+void	free_exit(t_lists *lists, char **command);
 
 //  COMMANDS  //
 void	identify_exec(char *command, t_lists *lists, char **envp, int *ret_val);
+
+void	ft_exit(char **command, t_lists *lists);
 
 int		execve_return(char **split_cmd, char **envp);
 
@@ -65,6 +76,7 @@ void	update_pwd(t_node *env, char *new_path, char *updater);
 void	update_oldpwd(t_node *env, char *new_path);
 
 int		unset(char **command, t_node *env);
+void	unset_variable(t_node *env, char *unseted_var);
 int		export(char **command, t_node *env);
 
 #endif

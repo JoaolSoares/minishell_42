@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 19:09:40 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/03/03 16:36:29 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/03/08 20:38:41 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ static int	execve_command(char **command, char **envp)
 	int		i;
 
 	temp = ft_strdup(command[0]);
+	execve(command[0], command, NULL);
 	if (ft_strchr(command[0], '/'))
 		command = absolut_path(command);
 	possible_paths = find_paths(envp);
@@ -58,27 +59,30 @@ static int	execve_command(char **command, char **envp)
 	free_split(command);
 	free(possible_paths);
 	free(temp);
-	return (1);
+	return (127);
 }
 
-static pid_t	child_process(void)
-{
-	pid_t	pid;
+// char **env_to_envp(t_node *env)
+// {
+// 	t_node *aux;
 
-	pid = fork();
-	if (pid < 0)
-		exit (20);
-	return (pid);
-}
+// 	aux = env;
+// 	while (aux)
+// 	{
+
+// 	}
+		
+// }
 
 int	execve_return(char **split_cmd, char **envp)
 {
 	pid_t	pid;
 	int		pipe_fd[2];
 	int		return_value;
-
+	// char	**envp;
 	if (pipe(pipe_fd) < 0)
 		exit (1);
+	// envp = env_to_envp(env);
 	pid = child_process();
 	if (pid == 0)
 	{

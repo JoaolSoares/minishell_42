@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dofranci <dofranci@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 18:34:27 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/03/01 22:52:50 by dofranci         ###   ########.fr       */
+/*   Updated: 2023/03/08 21:42:59 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static void	unset_variable(t_node *env, char *unseted_var)
+void	unset_variable(t_node *env, char *unseted_var)
 {
 	t_node	*aux;
 	t_node	*swap_node;

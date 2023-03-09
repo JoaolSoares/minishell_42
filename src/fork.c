@@ -1,36 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   terminal_line.c                                    :+:      :+:    :+:   */
+/*   fork.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/19 20:36:37 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/03/07 18:37:49 by jlucas-s         ###   ########.fr       */
+/*   Created: 2023/03/08 14:28:21 by jlucas-s          #+#    #+#             */
+/*   Updated: 2023/03/08 14:29:28 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	print_terminal_line(void)
+pid_t	child_process(void)
 {
-	char	buffer[SIZE_PATH];
+	pid_t	pid;
 
-	getcwd(buffer, SIZE_PATH);
-	ft_printf("Minishell:");
-	if (ft_strncmp(buffer, getenv("HOME"), ft_strlen(getenv("HOME")) + 1))
-	{
-		if (ft_strlen(getenv("HOME")) > ft_strlen(buffer))
-			ft_printf("%s", buffer);
-		else
-			ft_printf("~%s", buffer + ft_strlen(getenv("HOME")));
-	}
-	else
-		ft_putchar('~');
-}
-
-char	*prompt(void)
-{
-	print_terminal_line();
-	return (readline("\n$>"));
+	pid = fork();
+	if (pid < 0)
+		exit (20);
+	return (pid);
 }

@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 16:35:29 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/03/03 16:40:17 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/03/08 21:33:13 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,20 @@ static void	free_linked_list(t_node *root)
 
 void	free_all(t_lists *lists, char *command)
 {
+	rl_clear_history();	
 	free_linked_list(lists->env);
 	if (lists->history)
 		free_linked_list(lists->history);
 	free(command);
+	free(lists);
+}
+
+void	free_exit(t_lists *lists, char **command)
+{
+	rl_clear_history();
+	free_linked_list(lists->env);
+	if (lists->history)
+		free_linked_list(lists->history);
+	free_split(command);
 	free(lists);
 }

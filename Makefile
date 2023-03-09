@@ -6,7 +6,7 @@
 #    By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/09 00:10:02 by jlucas-s          #+#    #+#              #
-#    Updated: 2023/03/03 16:36:54 by jlucas-s         ###   ########.fr        #
+#    Updated: 2023/03/08 21:02:53 by jlucas-s         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,8 +27,11 @@ LIBFT =			./lib/libft.a
 SRCS =			src/main.c					\
 				src/linked_list.c			\
 				src/free.c					\
+				src/fork.c					\
 				src/terminal_line.c			\
 				src/identify_exec.c			\
+				src/pipe.c					\
+				src/commands/exit.c			\
 				src/commands/execve.c		\
 				src/commands/echo.c			\
 				src/commands/cd_utils.c		\
@@ -46,7 +49,7 @@ ${NAME}: ${OBJS}
 	@ make -s -C ${LIBFTPATH} 
 	@ $(CC) $(FLAGS) $(OBJS) $(LIBFT) -lreadline -o $(NAME)
 	@ echo "${GREEN}-=- MINISHELL MANDATORY SUCCESSFUL COMPILED -=-${NOCOLOR}"
-
+	
 $(OBJS_DIR)/%.o: %.c
 	@ mkdir -p $(dir $@)
 	@ $(CC) $(FLAGS) -c $< -o $@
@@ -66,5 +69,8 @@ run: ${NAME}
 
 valgrind: ${NAME}
 	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(NAME)
+
+sla:
+	./a.out
 
 .PHONY: all clean fclean run valgrind
