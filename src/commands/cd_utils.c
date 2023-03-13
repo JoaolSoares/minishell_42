@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 20:21:37 by dofranci          #+#    #+#             */
-/*   Updated: 2023/03/02 16:22:30 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/03/09 15:41:25 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,7 @@ void	update_oldpwd(t_node *env, char *new_path)
 	char	*join;
 
 	join = ft_strjoin(ft_strdup("export OLDPWD="), new_path);
-	command = ft_split(join, ' ');
-	free(join);
+	command = ft_split(join, ' ', 1);
 	export(command, env);
 	free_split(command);
 }

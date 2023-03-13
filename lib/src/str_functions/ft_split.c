@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 19:16:03 by jlucas-s          #+#    #+#             */
-/*   Updated: 2022/10/12 22:16:58 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/03/09 14:21:23 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static int	ft_wordscount(char const *s, char c)
 	return (count);
 }
 
-char	**ft_split(char const *s, char c)
+char	**ft_split(char *s, char c, int opt)
 {
 	char	**split;
 	int		words_count;
@@ -86,6 +86,8 @@ char	**ft_split(char const *s, char c)
 	if (!split)
 		return (0);
 	ft_splitwords(split, s, c, words_count);
+	if (opt == 1)
+		free(s);
 	return (split);
 }
 

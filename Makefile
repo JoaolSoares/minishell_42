@@ -6,7 +6,7 @@
 #    By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/09 00:10:02 by jlucas-s          #+#    #+#              #
-#    Updated: 2023/03/08 21:02:53 by jlucas-s         ###   ########.fr        #
+#    Updated: 2023/03/10 20:20:57 by jlucas-s         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,7 +65,7 @@ fclean: clean
 re: fclean all
 
 run: ${NAME}
-	./$(NAME)
+	@./$(NAME)
 
 valgrind: ${NAME}
 	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(NAME)

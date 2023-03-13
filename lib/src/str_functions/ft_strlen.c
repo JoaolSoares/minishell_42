@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 00:19:10 by jlucas-s          #+#    #+#             */
-/*   Updated: 2022/10/12 22:17:15 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/03/10 19:25:44 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ size_t	ft_strlen(const char *s)
 	int	i;
 
 	i = 0;
-	while (s[i] != '\0')
+	while (s[i])
 		++i;
 	return (i);
 }

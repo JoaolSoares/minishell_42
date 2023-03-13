@@ -28,6 +28,7 @@ SRCS =  src/is_functions/ft_isalnum.c		\
 		src/put_functions/ft_putnbr_fd.c	\
         src/str_functions/ft_strchr.c		\
         src/str_functions/ft_strdup.c		\
+        src/str_functions/ft_until_strdup.c	\
         src/str_functions/ft_strlcat.c		\
         src/str_functions/ft_strlcpy.c		\
         src/str_functions/ft_strlen.c		\
@@ -39,11 +40,13 @@ SRCS =  src/is_functions/ft_isalnum.c		\
 		src/str_functions/ft_substr.c		\
 		src/str_functions/ft_strjoin.c		\
 		src/str_functions/ft_strtrim.c		\
+		src/str_functions/ft_strinsert.c	\
 		src/str_functions/ft_split.c		\
 		src/str_functions/ft_strmapi.c		\
 		src/str_functions/ft_striteri.c		\
 		src/str_functions/ft_strlen_until.c	\
 		src/str_functions/ft_borderchar.c	\
+		src/str_functions/ft_deletechar.c	\
 		src/get_next_line.c					\
 		src/printf_lib/ft_printf.c			\
 		src/printf_lib/conversions.c		\
