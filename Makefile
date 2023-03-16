@@ -6,7 +6,7 @@
 #    By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/09 00:10:02 by jlucas-s          #+#    #+#              #
-#    Updated: 2023/03/10 20:20:57 by jlucas-s         ###   ########.fr        #
+#    Updated: 2023/03/15 21:57:13 by jlucas-s         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ SRCS =			src/main.c					\
 				src/fork.c					\
 				src/terminal_line.c			\
 				src/identify_exec.c			\
+				src/split_command.c			\
 				src/pipe.c					\
 				src/commands/exit.c			\
 				src/commands/execve.c		\
@@ -38,6 +39,8 @@ SRCS =			src/main.c					\
 				src/commands/cd.c			\
 				src/commands/unset.c		\
 				src/commands/export.c		\
+				src/redirects/output.c		\
+				src/redirects/input.c		\
 
 OBJS_DIR = 		./objects
 OBJS =			${SRCS:%.c=$(OBJS_DIR)/%.o}
@@ -68,7 +71,7 @@ run: ${NAME}
 	@./$(NAME)
 
 valgrind: ${NAME}
-	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(NAME)
+	valgrind --leak-check=full --suppressions=readline.supp --show-leak-kinds=all --track-origins=yes ./$(NAME)
 
 sla:
 	./a.out

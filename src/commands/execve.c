@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 19:09:40 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/03/09 20:33:47 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/03/15 20:42:12 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ static int	execve_command(char **command, char **envp)
 	else
 		ft_printf("minishell: %s: command not found\n", temp);
 	
-	free_split(command);
 	free_split(envp);
 	free(possible_paths);
 	free(temp);
@@ -79,7 +78,7 @@ static char	**env_to_envp(t_node *env)
 	return(envp);
 }
 
-int	execve_return(char **split_cmd, t_node *env)
+int	execve_return(char **split_cmd, t_lists *lists)
 {
 	pid_t	pid;
 	int		pipe_fd[2];
@@ -92,10 +91,11 @@ int	execve_return(char **split_cmd, t_node *env)
 	if (pid == 0)
 	{
 		close(pipe_fd[0]);
-		envp = env_to_envp(env);
+		envp = env_to_envp(lists->env);
 		return_value = execve_command(split_cmd, envp);
 		write(pipe_fd[1], &return_value, sizeof(int));
 		close(pipe_fd[1]);
+		free_exit(lists, split_cmd);
 		exit(1);
 	}
 	wait(NULL);

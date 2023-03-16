@@ -47,6 +47,7 @@ SRCS =  src/is_functions/ft_isalnum.c		\
 		src/str_functions/ft_strlen_until.c	\
 		src/str_functions/ft_borderchar.c	\
 		src/str_functions/ft_deletechar.c	\
+		src/str_functions/ft_pullchars.c	\
 		src/get_next_line.c					\
 		src/printf_lib/ft_printf.c			\
 		src/printf_lib/conversions.c		\

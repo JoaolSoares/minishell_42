@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 21:55:50 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/03/09 15:37:35 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/03/15 18:19:21 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void		ft_striteri(char *s, void (*f)(unsigned int, char*));
 
 char		*ft_borderchar(char *str, char border);
 char		*ft_deletechar(char *str, size_t index);
+void		ft_pullchars(char *str, size_t index, char final_char);
 
 //	PUT_FUNCTIONS
 void		ft_putchar_fd(char c, int fd);

@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 16:35:29 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/03/08 21:33:13 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/03/15 20:38:28 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	free_split(char **split)
 	free(split);
 }
 
-static void	free_linked_list(t_node *root)
+void	free_linked_list(t_node *root)
 {
 	t_node	*aux;
 	t_node	*aux_next;

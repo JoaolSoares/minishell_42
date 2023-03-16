@@ -6,37 +6,37 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 20:41:49 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/03/10 20:32:08 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/03/15 18:55:44 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static void	print_env_var(char *var, t_node *env, int *return_value)
-{
-	t_node	*aux;
-	int		i;
+// static void	print_env_var(char *var, t_node *env, int *return_value)
+// {
+// 	t_node	*aux;
+// 	int		i;
 
-	i = 0;
-	if (var[0] == '?')
-	{
-		ft_printf("%i", *return_value);
-		i++;
-	}
-	aux = env;
-	while (aux)
-	{
-		if (!ft_strncmp(aux->content, var + i, ft_strlen(var) - i) && \
-			ft_strlen(var + i) > 0)
-		{
-			ft_putstr_fd(ft_strchr(aux->content, '=') + 1, STDOUT_FILENO);
-			break ;
-		}
-		aux = aux->next;
-	}
-}
+// 	i = 0;
+// 	if (var[0] == '?')
+// 	{
+// 		ft_printf("%i", *return_value);
+// 		i++;
+// 	}
+// 	aux = env;
+// 	while (aux)
+// 	{
+// 		if (!ft_strncmp(aux->content, var + i, ft_strlen(var) - i) && 
+// 			ft_strlen(var + i) > 0)
+// 		{
+// 			ft_putstr_fd(ft_strchr(aux->content, '=') + 1, STDOUT_FILENO);
+// 			break ;
+// 		}
+// 		aux = aux->next;
+// 	}
+// }
 
-int	echo(char **command, t_node *env, int *return_value)
+int	echo(char **command)
 {
 	int	have_n;
 	int	i;
@@ -47,10 +47,7 @@ int	echo(char **command, t_node *env, int *return_value)
 	i = 0 + have_n;
 	while (command[++i])
 	{
-		if (command[i][0] == '$')
-			print_env_var(command[i] + 1, env, return_value);
-		else
-			ft_putstr_fd(command[i], STDOUT_FILENO);
+		ft_putstr_fd(command[i], STDOUT_FILENO);
 		if (command[i] + 1)
 			ft_putchar(' ');
 	}

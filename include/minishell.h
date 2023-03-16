@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 16:12:33 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/03/09 22:02:44 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/03/15 21:57:01 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 #include "../lib/include/libft.h"
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <dirent.h>
@@ -43,6 +45,12 @@ typedef struct	s_lists
 
 }	t_lists;
 
+typedef struct s_aux
+{
+	char *cmd;
+
+}	t_aux;
+
 //  FUNCTIONS  //
 //  PROMPT  //
 char	*prompt();
@@ -64,15 +72,17 @@ int	pipe_exec(char **command, t_node *env);
 void	free_split(char **split);
 void	free_all(t_lists *lists, char *command);
 void	free_exit(t_lists *lists, char **command);
+void	free_linked_list(t_node *root);
 
 //  COMMANDS  //
 void	identify_exec(char *command, t_lists *lists, int *ret_val);
+char	**split_command(char *cmd, t_node *env, int return_value);
 
 void	ft_exit(char **command, t_lists *lists);
 
-int		execve_return(char **split_cmd, t_node *env);
+int		execve_return(char **split_cmd, t_lists *lists);
 
-int		echo(char **command, t_node *env, int *return_value);
+int		echo(char **command);
 
 int		cd(char **command, t_node *env);
 void	update_pwd(t_node *env, char *new_path, char *updater);
@@ -82,5 +92,10 @@ int		unset(char **command, t_node *env);
 void	unset_variable(t_node *env, char *unseted_var);
 int		export(char **command, t_node *env);
 char	*ft_until_strdup(const char *s, size_t index);
+
+//  REDIRECTS  //
+void	redirect_output(char **cmd, t_lists *lists, int *ret_val);
+void	redirect_input(char **cmd, t_lists *lists, int *ret_val);
+
 
 #endif
