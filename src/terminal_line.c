@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 20:36:37 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/03/09 22:05:06 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/03/20 22:03:09 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,5 @@ void    print_terminal_line(void)
 char    *prompt(void)
 {
     print_terminal_line();
-    return (readline(WHITE "\n$>"));
+    return (readline(WHITE "\n$> "));
 }

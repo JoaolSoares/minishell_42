@@ -6,13 +6,13 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 16:35:50 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/03/15 22:07:32 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/03/20 21:27:26 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	have_char(char **split_cmd, char *c)
+int	have_str(char **split_cmd, char *c)
 {
 	int	i;
 
@@ -30,13 +30,11 @@ void	identify_exec(char *command, t_lists *lists, int *ret_val)
 	split_cmd = split_command(command, lists->env, *ret_val);
 	if (split_cmd[0])
 	{
-		if (have_char(split_cmd, ">") || have_char(split_cmd, ">>") )
-			redirect_output(split_cmd, lists, ret_val);
-		else if (have_char(split_cmd, "<"))
+		if (have_str(split_cmd, "<"))
 			redirect_input(split_cmd, lists, ret_val);
-		// else if (have_char(split_cmd, '<'))
-		// 	redirect_input(split_cmd, lists->env);
-		else if (have_char(split_cmd, "|"))
+		else if (have_str(split_cmd, ">") || have_str(split_cmd, ">>") )
+			redirect_output(split_cmd, lists, ret_val);
+		else if (have_str(split_cmd, "|"))
 			pipe_exec(split_cmd, lists->env);
 		else if (!ft_strncmp(split_cmd[0], "exit", ft_strlen(split_cmd[0]) + 1))
 			ft_exit(split_cmd, lists);

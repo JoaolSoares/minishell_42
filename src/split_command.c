@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 20:54:58 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/03/15 21:04:58 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/03/20 21:23:30 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static int	double_quote(t_aux *aux, int i, t_node *env, int return_value)
 		i++;
 	}
 	ft_pullchars(aux->cmd, i, 4);
-	return (i);
+	return (--i);
 }
 
 char	**split_command(char *cmd, t_node *env, int return_value)
