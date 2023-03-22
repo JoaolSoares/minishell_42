@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 20:54:58 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/03/20 21:23:30 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/03/21 14:32:10 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ char	**split_command(char *cmd, t_node *env, int return_value)
 			ft_pullchars(aux->cmd, i, 4);
 			while (aux->cmd[i] != 39 && aux->cmd[i])
 				i++;
-			ft_pullchars(aux->cmd, i, 4);
+			ft_pullchars(aux->cmd, i--, 4);
 		}
 		else if (aux->cmd[i] == '"')
 			i = double_quote(aux, i, env, return_value);

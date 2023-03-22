@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 16:35:50 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/03/20 21:27:26 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/03/21 14:44:05 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,9 @@ int	have_str(char **split_cmd, char *c)
 	return (0);
 }
 
-void	identify_exec(char *command, t_lists *lists, int *ret_val)
+void	identify_exec(char **split_cmd, t_lists *lists, int *ret_val)
 {
-	char	**split_cmd;
-
-	split_cmd = split_command(command, lists->env, *ret_val);
-	if (split_cmd[0])
+	if (split_cmd && split_cmd[0])
 	{
 		if (have_str(split_cmd, "<"))
 			redirect_input(split_cmd, lists, ret_val);
@@ -53,5 +50,6 @@ void	identify_exec(char *command, t_lists *lists, int *ret_val)
 		else
 			*ret_val = execve_return(split_cmd, lists);
 	}
-	free_split(split_cmd);
+	if (split_cmd)
+		free_split(split_cmd);
 }

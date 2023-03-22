@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 16:12:33 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/03/15 21:57:01 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/03/21 14:27:33 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,9 @@ void	free_exit(t_lists *lists, char **command);
 void	free_linked_list(t_node *root);
 
 //  COMMANDS  //
-void	identify_exec(char *command, t_lists *lists, int *ret_val);
+void	identify_exec(char **split_cmd, t_lists *lists, int *ret_val);
 char	**split_command(char *cmd, t_node *env, int return_value);
+char	**basic_split_command(char *cmd);
 
 void	ft_exit(char **command, t_lists *lists);
 

@@ -6,13 +6,13 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 21:17:43 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/03/20 21:55:30 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/03/21 15:18:59 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static char *fodace(int start, int end, char **cmd)
+static char **fodace(int start, int end, char **cmd)
 {
 	char	*aux_str;
 	char	*temp;
@@ -25,7 +25,7 @@ static char *fodace(int start, int end, char **cmd)
 		aux_str = ft_strjoin(ft_strjoin(temp, "\4"), cmd[start]);
 	}
 	
-	return (aux_str);
+	return (ft_split(aux_str, 4, 1));
 }
 
 void	redirect_output(char **cmd, t_lists *lists, int *ret_val)
@@ -33,7 +33,7 @@ void	redirect_output(char **cmd, t_lists *lists, int *ret_val)
 	int		i;
 	int		fd;
 	int		pid;
-	char	*cmd_rest;
+	char	**cmd_rest;
 
 	pid = child_process();
 	if (pid == 0)
@@ -53,12 +53,13 @@ void	redirect_output(char **cmd, t_lists *lists, int *ret_val)
 			}
 		}
 		dup2(fd, STDOUT_FILENO);
-		if (!ft_strncmp(cmd[0], ">", 2) || !ft_strncmp(cmd[i], ">>", 3))
+		if (!ft_strncmp(cmd[0], ">", 2) || !ft_strncmp(cmd[0], ">>", 3))
 			cmd_rest = NULL;
 		else
 			cmd_rest = fodace(0, i - 1, cmd);
+		// for (int i = 0; cmd_rest[i]; i++)
+		// 	ft_printf("output[%i]: %s\n", i, cmd_rest[i]);
 		identify_exec(cmd_rest, lists, ret_val);
-		free(cmd_rest);
 		free_exit(lists, cmd);
 		exit(0);
 	}

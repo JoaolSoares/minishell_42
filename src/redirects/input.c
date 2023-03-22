@@ -6,13 +6,13 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 21:56:39 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/03/20 22:04:30 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/03/21 15:18:55 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-char *fodace(int start, int end, char **cmd)
+static char **fodace(int start, int end, char **cmd)
 {
 	char	*aux_str;
 	char	*temp;
@@ -24,8 +24,7 @@ char *fodace(int start, int end, char **cmd)
 		free(aux_str);
 		aux_str = ft_strjoin(ft_strjoin(temp, "\4"), cmd[start]);
 	}
-	
-	return (aux_str);
+	return (ft_split(aux_str, 4, 1));
 }
 
 void	redirect_input(char **cmd, t_lists *lists, int *ret_val)
@@ -33,7 +32,7 @@ void	redirect_input(char **cmd, t_lists *lists, int *ret_val)
 	int		i;
 	int		fd;
 	int		pid;
-	char	*cmd_rest;
+	char	**cmd_rest;
 
 	pid = child_process();
 	if (pid == 0)
@@ -52,9 +51,9 @@ void	redirect_input(char **cmd, t_lists *lists, int *ret_val)
 			cmd_rest = fodace(i + 2, 1000, cmd);
 		else
 			cmd_rest = fodace(0, i - 1, cmd);
-		ft_printf("%s\n", cmd_rest);
+		// for (int i = 0; cmd_rest[i]; i++)
+		// 	ft_printf("input[%i]: %s\n", i, cmd_rest[i]);
 		identify_exec(cmd_rest, lists, ret_val);
-		free(cmd_rest);
 		free_exit(lists, cmd);
 		exit(0);
 	}
