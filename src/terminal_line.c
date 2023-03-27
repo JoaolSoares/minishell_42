@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 20:36:37 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/03/20 22:03:09 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/03/22 21:49:18 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void    print_terminal_line(void)
     }
     else
         ft_putchar('~');
+    ft_printf(WHITE);
 }
 
 char    *prompt(void)

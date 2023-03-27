@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 21:17:43 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/03/21 15:18:59 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/03/27 20:15:11 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,11 @@ void	redirect_output(char **cmd, t_lists *lists, int *ret_val)
 			cmd_rest = NULL;
 		else
 			cmd_rest = fodace(0, i - 1, cmd);
-		// for (int i = 0; cmd_rest[i]; i++)
-		// 	ft_printf("output[%i]: %s\n", i, cmd_rest[i]);
+		free_split(cmd);
+		for (int j = 0; cmd_rest[j]; j++)
+			ft_printf("< |%s|\n", cmd_rest[j]);
 		identify_exec(cmd_rest, lists, ret_val);
-		free_exit(lists, cmd);
+		free_exit(lists, cmd, 0);
 		exit(0);
 	}
 	wait(NULL);

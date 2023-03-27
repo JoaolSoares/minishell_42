@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 16:15:55 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/03/21 14:28:04 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/03/22 21:52:17 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ int	main(int argc, char *argv[], char *envp[])
 		{
 			add_history(command);
 			add_in_history(&lists->history, command);
-		
 			identify_exec(split_command(command, lists->env, return_value), lists, &return_value);
 			wait(NULL);
 		}
@@ -59,7 +58,7 @@ int	main(int argc, char *argv[], char *envp[])
 
 	if (!command)
 		ft_putchar('\n');
-	free_all(lists, command);
+	free_main(lists, command);
 	
 	return (0);
 }

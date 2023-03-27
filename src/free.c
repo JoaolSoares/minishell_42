@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 16:35:29 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/03/15 20:38:28 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/03/22 21:42:40 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	free_linked_list(t_node *root)
 	free(aux_next);
 }
 
-void	free_all(t_lists *lists, char *command)
+void	free_main(t_lists *lists, char *command)
 {
 	rl_clear_history();	
 	free_linked_list(lists->env);
@@ -51,12 +51,13 @@ void	free_all(t_lists *lists, char *command)
 	free(lists);
 }
 
-void	free_exit(t_lists *lists, char **command)
+void	free_exit(t_lists *lists, char **command, int opt)
 {
 	rl_clear_history();
 	free_linked_list(lists->env);
 	if (lists->history)
 		free_linked_list(lists->history);
-	free_split(command);
+	if (opt == 1)
+		free_split(command);
 	free(lists);
 }

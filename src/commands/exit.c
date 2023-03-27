@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 21:02:00 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/03/08 21:26:54 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/03/22 21:43:50 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_exit(char **command, t_lists *lists)
 	
 	if (!command[1])
 	{
-		free_exit(lists, command);
+		free_exit(lists, command, 1);
 		exit(0);
 	}
 	else if (command[2])
@@ -26,14 +26,14 @@ void	ft_exit(char **command, t_lists *lists)
 	else if (ft_str_isnum(command[1]))
 	{
 		exit_num = ft_atoi(command[1]);
-		free_exit(lists, command);
+		free_exit(lists, command, 1);
 		exit(exit_num);
 	}
 	else
 	{
 		ft_printf("logout\n-minishell: exit: %s: numeric argument requireds\n", 
 		command[1]);
-		free_exit(lists, command);
+		free_exit(lists, command, 1);
 		exit(2);
 	}
 }

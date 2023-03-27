@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 16:35:50 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/03/21 14:44:05 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/03/27 19:02:09 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	identify_exec(char **split_cmd, t_lists *lists, int *ret_val)
 {
 	if (split_cmd && split_cmd[0])
 	{
-		if (have_str(split_cmd, "<"))
+		if (have_str(split_cmd, "<") || have_str(split_cmd, "<<"))
 			redirect_input(split_cmd, lists, ret_val);
 		else if (have_str(split_cmd, ">") || have_str(split_cmd, ">>") )
 			redirect_output(split_cmd, lists, ret_val);

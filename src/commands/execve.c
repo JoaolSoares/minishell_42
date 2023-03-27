@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 19:09:40 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/03/15 20:42:12 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/03/22 21:43:56 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int	execve_return(char **split_cmd, t_lists *lists)
 		return_value = execve_command(split_cmd, envp);
 		write(pipe_fd[1], &return_value, sizeof(int));
 		close(pipe_fd[1]);
-		free_exit(lists, split_cmd);
+		free_exit(lists, split_cmd, 1);
 		exit(1);
 	}
 	wait(NULL);
