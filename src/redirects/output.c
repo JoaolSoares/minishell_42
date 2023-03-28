@@ -6,25 +6,31 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 21:17:43 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/03/27 20:15:11 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/03/27 23:40:49 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static char **fodace(int start, int end, char **cmd)
+static char **fodace(int delete, int size, char **cmd)
 {
 	char	*aux_str;
 	char	*temp;
+	int		i;
 
-	aux_str = ft_strdup(cmd[start]);
-	while (++start <= end && cmd[start])
+	i = 0;
+	while (i >= delete && i <= delete + size)
+		i++;
+	aux_str = ft_strdup(cmd[i]);
+	while (cmd[++i])
 	{
-		temp = ft_strdup(aux_str);
-		free(aux_str);
-		aux_str = ft_strjoin(ft_strjoin(temp, "\4"), cmd[start]);
+		if (i < delete || i > delete + size)
+		{
+			temp = ft_strdup(aux_str);
+			free(aux_str);
+			aux_str = ft_strjoin(ft_strjoin(temp, "\4"), cmd[i]);
+		}
 	}
-	
 	return (ft_split(aux_str, 4, 1));
 }
 
@@ -56,10 +62,8 @@ void	redirect_output(char **cmd, t_lists *lists, int *ret_val)
 		if (!ft_strncmp(cmd[0], ">", 2) || !ft_strncmp(cmd[0], ">>", 3))
 			cmd_rest = NULL;
 		else
-			cmd_rest = fodace(0, i - 1, cmd);
+			cmd_rest = fodace(i, 2, cmd);
 		free_split(cmd);
-		for (int j = 0; cmd_rest[j]; j++)
-			ft_printf("< |%s|\n", cmd_rest[j]);
 		identify_exec(cmd_rest, lists, ret_val);
 		free_exit(lists, cmd, 0);
 		exit(0);
