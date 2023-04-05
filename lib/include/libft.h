@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 21:55:50 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/03/15 18:19:21 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/04/04 16:38:16 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ char		*ft_strrchr(const char *s, int c);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
 char		*ft_strnstr(const char *big, const char *little, size_t len);
 char		*ft_strdup(const char *src);
+char		**ft_mtxdup(char **mtx);
 char		*ft_until_strdup(const char *s, size_t index);
 char		*ft_substr(char const *s, unsigned int start, size_t len);
 char		*ft_strjoin(char *s1, char *s2);

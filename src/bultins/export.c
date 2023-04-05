@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 19:33:17 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/03/09 16:10:55 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/04/04 21:44:41 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,17 @@ char	*ft_until_strdup(const char *s, size_t index)
 	return (new_s);
 }
 
+int	separated_var(char **command, int i, t_node *env)
+{
+	char	*aux_str;
+
+	aux_str = ft_until_strdup(command[i], ft_strlen_until(command[i], '=') + 1);
+	unset_variable(env, aux_str);
+	free(aux_str);
+	insert_in_list(&env, command[i++]);
+	return (i);
+}
+
 int	export(char **command, t_node *env)
 {
 	int		i;
@@ -41,8 +52,8 @@ int	export(char **command, t_node *env)
 			ft_printf("%s :is invalid\n", command[i]);
 			return (1);
 		}
-		else if (ft_strlen(command[i]) == (ft_strlen_until(command[i], '=') + 1) \
-		&& command[i + 1])
+		else if (ft_strlen(command[i]) == \
+		(ft_strlen_until(command[i], '=') + 1) && command[i + 1])
 		{
 			aux_str = ft_strjoin(ft_strdup(command[i]), command[i + 1]);
 			unset_variable(env, command[i]);
@@ -50,13 +61,9 @@ int	export(char **command, t_node *env)
 			free(aux_str);
 			i += 2;
 		}
-		else			
-		{
-			aux_str = ft_until_strdup(command[i], ft_strlen_until(command[i], '=') + 1);
-			unset_variable(env, aux_str);
-			free(aux_str);
-			insert_in_list(&env, command[i++]);
-		}
+		else
+			i = separated_var(command, i, env);
 	}
+	free_split(command);
 	return (0);
 }

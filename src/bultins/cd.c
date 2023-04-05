@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 16:44:51 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/03/02 18:36:32 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/04/04 20:33:14 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,6 @@ int	cd(char **command, t_node *env)
 	update_pwd(env, buffer, "PWD=");
 	free(path);
 	closedir(dir);
+	free_split(command);
 	return (0);
 }

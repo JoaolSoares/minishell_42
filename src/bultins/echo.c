@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 20:41:49 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/03/15 18:55:44 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/04/04 20:33:40 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,6 @@ int	echo(char **command)
 	}
 	if (!have_n)
 		ft_putchar('\n');
+	free_split(command);
 	return (0);
 }

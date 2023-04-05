@@ -6,7 +6,7 @@
 #    By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/09 00:10:02 by jlucas-s          #+#    #+#              #
-#    Updated: 2023/03/15 21:57:13 by jlucas-s         ###   ########.fr        #
+#    Updated: 2023/04/04 21:31:01 by jlucas-s         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,17 +30,20 @@ SRCS =			src/main.c					\
 				src/fork.c					\
 				src/terminal_line.c			\
 				src/identify_exec.c			\
-				src/split_command.c			\
-				src/pipe.c					\
-				src/commands/exit.c			\
-				src/commands/execve.c		\
-				src/commands/echo.c			\
-				src/commands/cd_utils.c		\
-				src/commands/cd.c			\
-				src/commands/unset.c		\
-				src/commands/export.c		\
+				src/parser/split_command.c	\
+				src/parser/utils.c	\
+				src/bultins/exit.c			\
+				src/bultins/execve.c		\
+				src/bultins/echo.c			\
+				src/bultins/cd_utils.c		\
+				src/bultins/cd.c			\
+				src/bultins/unset.c			\
+				src/bultins/export.c		\
 				src/redirects/output.c		\
 				src/redirects/input.c		\
+				src/pipe/pipe_exec.c		\
+				src/pipe/pipes.c			\
+				src/pipe/childs.c			\
 
 OBJS_DIR = 		./objects
 OBJS =			${SRCS:%.c=$(OBJS_DIR)/%.o}

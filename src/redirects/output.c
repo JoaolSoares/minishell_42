@@ -6,13 +6,13 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 21:17:43 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/03/27 23:40:49 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/04/04 21:56:17 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static char **fodace(int delete, int size, char **cmd)
+char	**str_rest(int delete, int size, char **cmd)
 {
 	char	*aux_str;
 	char	*temp;
@@ -34,6 +34,22 @@ static char **fodace(int delete, int size, char **cmd)
 	return (ft_split(aux_str, 4, 1));
 }
 
+static int	open_files(char **cmd, int *i)
+{
+	int	fd;
+
+	while (cmd[++*i])
+	{
+		if (!ft_strncmp(cmd[*i], ">", 2))
+			fd = open(cmd[*i + 1], O_CREAT | O_WRONLY | O_TRUNC, 0644);
+		if (!ft_strncmp(cmd[*i], ">>", 3))
+			fd = open(cmd[*i + 1], O_CREAT | O_WRONLY | O_APPEND, 0644);
+		if (!ft_strncmp(cmd[*i], ">", 2) || !ft_strncmp(cmd[*i], ">>", 3))
+			break ;
+	}
+	return (fd);
+}
+
 void	redirect_output(char **cmd, t_lists *lists, int *ret_val)
 {
 	int		i;
@@ -45,28 +61,18 @@ void	redirect_output(char **cmd, t_lists *lists, int *ret_val)
 	if (pid == 0)
 	{
 		i = -1;
-		while (cmd[++i])
-		{
-			if (!ft_strncmp(cmd[i], ">", 2))
-			{
-				fd = open(cmd[i + 1], O_CREAT | O_WRONLY | O_TRUNC, 0644);
-				break ;
-			}
-			if (!ft_strncmp(cmd[i], ">>", 3))
-			{
-				fd = open(cmd[i + 1], O_CREAT | O_WRONLY | O_APPEND, 0644);
-				break ;
-			}
-		}
+		fd = open_files(cmd, &i);
 		dup2(fd, STDOUT_FILENO);
 		if (!ft_strncmp(cmd[0], ">", 2) || !ft_strncmp(cmd[0], ">>", 3))
 			cmd_rest = NULL;
 		else
-			cmd_rest = fodace(i, 2, cmd);
+			cmd_rest = str_rest(i, 2, cmd);
 		free_split(cmd);
 		identify_exec(cmd_rest, lists, ret_val);
 		free_exit(lists, cmd, 0);
+		close(fd);
 		exit(0);
 	}
 	wait(NULL);
+	free_split(cmd);
 }

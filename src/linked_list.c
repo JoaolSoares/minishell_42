@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 18:56:46 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/03/15 19:55:51 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/04/04 20:34:41 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	envp_linked_list(t_node **root, char **envp)
 		insert_in_list(root, envp[i]);
 }
 
-int	print_linked_list(t_node *root)
+int	print_linked_list(t_node *root, char **command)
 {
 	t_node	*aux;
 
@@ -63,5 +63,6 @@ int	print_linked_list(t_node *root)
 		ft_printf("%s\n", aux->content);
 		aux = aux->next;
 	}
+	free_split(command);
 	return (0);
 }

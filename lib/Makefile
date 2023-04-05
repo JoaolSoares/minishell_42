@@ -28,6 +28,7 @@ SRCS =  src/is_functions/ft_isalnum.c		\
 		src/put_functions/ft_putnbr_fd.c	\
         src/str_functions/ft_strchr.c		\
         src/str_functions/ft_strdup.c		\
+        src/str_functions/ft_mtxdup.c		\
         src/str_functions/ft_until_strdup.c	\
         src/str_functions/ft_strlcat.c		\
         src/str_functions/ft_strlcpy.c		\

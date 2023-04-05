@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 18:34:27 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/03/08 21:42:59 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/04/04 20:33:57 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,6 @@ int	unset(char **command, t_node *env)
 	i = 0;
 	while (command[++i])
 		unset_variable(env, command[i]);
+	free_split(command);
 	return (0);
 }

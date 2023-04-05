@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 19:09:40 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/03/22 21:43:56 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/04/04 21:01:27 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static char	**find_paths(char **envp)
 	{
 		i++;
 		if (!envp[i])
-			return(NULL);
+			return (NULL);
 	}
 	paths = ft_split(envp[i] + 5, ':', 0);
 	return (paths);
@@ -49,7 +49,6 @@ static int	execve_command(char **command, char **envp)
 		ft_printf("minishell: %s: No such file or directory\n", temp);
 	else
 		ft_printf("minishell: %s: command not found\n", temp);
-	
 	free_split(envp);
 	free(possible_paths);
 	free(temp);
@@ -75,7 +74,7 @@ static char	**env_to_envp(t_node *env)
 		aux = aux->next;
 	}
 	envp[i] = NULL;
-	return(envp);
+	return (envp);
 }
 
 int	execve_return(char **split_cmd, t_lists *lists)
@@ -103,5 +102,6 @@ int	execve_return(char **split_cmd, t_lists *lists)
 	return_value = 0;
 	read(pipe_fd[0], &return_value, sizeof(int));
 	close(pipe_fd[0]);
+	free_split(split_cmd);
 	return (return_value);
 }
