@@ -6,13 +6,31 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 21:30:06 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/04/04 21:34:19 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/04/05 02:09:33 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static void	parser(int i, t_aux *aux, t_node *env)
+static char	*catch_env(char *env_var, t_node *env)
+{
+	t_node	*aux;
+	int		i;
+
+	i = 0;
+	while (env_var[i] > 32)
+		i++;
+	aux = env;
+	while (aux)
+	{
+		if (!ft_strncmp(aux->content, env_var, i))
+			return (ft_strchr(aux->content, '=') + 1);
+		aux = aux->next;
+	}
+	return (NULL);
+}
+
+static void	insert_env_var(int i, t_aux *aux, t_node *env)
 {
 	int		j;
 	char	*temp;
@@ -55,46 +73,6 @@ void	translate_env_var(t_aux *aux, int i, t_node *env, int return_value)
 			free(temp);
 		}
 		else
-			parser(i, aux, env);
+			insert_env_var(i, aux, env);
 	}
-}
-
-char	*catch_env(char *env_var, t_node *env)
-{
-	t_node	*aux;
-	int		i;
-
-	i = 0;
-	while (env_var[i] > 32)
-		i++;
-	aux = env;
-	while (aux)
-	{
-		if (!ft_strncmp(aux->content, env_var, i))
-			return (ft_strchr(aux->content, '=') + 1);
-		aux = aux->next;
-	}
-	return (NULL);
-}
-
-int	double_quote(t_aux *aux, int i, t_node *env, int return_value)
-{
-	ft_pullchars(aux->cmd, i, 4);
-	while (aux->cmd[i] != '"' && aux->cmd[i])
-	{
-		if (aux->cmd[i] == '$')
-			translate_env_var(aux, i, env, return_value);
-		i++;
-	}
-	ft_pullchars(aux->cmd, i, 4);
-	return (--i);
-}
-
-int	simple_quote(t_aux *aux, int i)
-{
-	ft_pullchars(aux->cmd, i, 4);
-	while (aux->cmd[i] != 39 && aux->cmd[i])
-		i++;
-	ft_pullchars(aux->cmd, i--, 4);
-	return (i);
 }

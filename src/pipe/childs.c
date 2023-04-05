@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 14:39:48 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/04/04 21:08:34 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/04/05 02:32:13 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ static void	first_child(t_pipes_data *pipe, char **command, \
 t_lists *lists, int *ret_val)
 {
 	pid_t	pid;
+	char	**alone_cmd;
 
 	pid = child_process();
 	if (pid < 0)
@@ -42,9 +43,10 @@ t_lists *lists, int *ret_val)
 	{
 		dup2(pipe->pipefd[0][1], STDOUT_FILENO);
 		close_pipes(pipe->pipefd, pipe->num_pipes, 1);
-		identify_exec(ft_split(cut_command(command), 4, 1), lists, ret_val);
-		free_split(command);
 		free(pipe);
+		alone_cmd = ft_split(cut_command(command), 4, 1);
+		free_split(command);
+		identify_exec(alone_cmd, lists, ret_val);
 		free_exit(lists, command, 0);
 		exit(331);
 	}
@@ -55,6 +57,7 @@ static void	middle_child(t_pipes_data *pipe, char **command, \
 t_lists *lists, int *ret_val)
 {
 	pid_t	pid;
+	char	**alone_cmd;
 
 	pid = child_process();
 	if (pid < 0)
@@ -64,9 +67,10 @@ t_lists *lists, int *ret_val)
 		dup2(pipe->pipefd[pipe->index][0], STDIN_FILENO);
 		dup2(pipe->pipefd[pipe->index + 1][1], STDOUT_FILENO);
 		close_pipes(pipe->pipefd, pipe->num_pipes, 0);
-		identify_exec(ft_split(cut_command(command), 4, 1), lists, ret_val);
 		free(pipe);
+		alone_cmd = ft_split(cut_command(command), 4, 1);
 		free_split(command);
+		identify_exec(alone_cmd, lists, ret_val);
 		free_exit(lists, command, 0);
 		exit(441);
 	}
@@ -77,6 +81,7 @@ static void	final_child(t_pipes_data *pipe, char **command, \
 t_lists *lists, int *ret_val)
 {
 	pid_t	pid;
+	char	**alone_cmd;
 
 	pid = child_process();
 	if (pid < 0)
@@ -85,9 +90,10 @@ t_lists *lists, int *ret_val)
 	{
 		dup2(pipe->pipefd[pipe->index][0], STDIN_FILENO);
 		close_pipes(pipe->pipefd, pipe->num_pipes, 1);
-		identify_exec(ft_split(cut_command(command), 4, 1), lists, ret_val);
-		free_split(command);
 		free(pipe);
+		alone_cmd = ft_split(cut_command(command), 4, 1);
+		free_split(command);
+		identify_exec(alone_cmd, lists, ret_val);
 		free_exit(lists, command, 0);
 		exit(551);
 	}

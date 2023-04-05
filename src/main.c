@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 16:15:55 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/04/04 21:40:38 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/04/05 02:15:14 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,20 +26,12 @@ void	sigint_handler(int sig_num)
 	}
 }
 
-int	main(int argc, char *argv[], char *envp[])
+void	minishell_loop(t_lists *lists)
 {
-	t_lists	*lists;
 	char	*command;
 	int		return_value;
 
-	if ((argc > 1 && argv))
-		exit (1);
-	lists = malloc(sizeof(t_lists));
-	envp_linked_list(&lists->env, envp);
-	lists->history = NULL;
 	return_value = 0;
-	signal(SIGQUIT, SIG_IGN);
-	signal(SIGINT, sigint_handler);
 	command = prompt();
 	while (command)
 	{
@@ -57,5 +49,19 @@ int	main(int argc, char *argv[], char *envp[])
 	if (!command)
 		ft_putchar('\n');
 	free_main(lists, command);
+}
+
+int	main(int argc, char *argv[], char *envp[])
+{
+	t_lists	*lists;
+
+	if ((argc > 1 && argv))
+		exit (1);
+	lists = malloc(sizeof(t_lists));
+	envp_linked_list(&lists->env, envp);
+	lists->history = NULL;
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, sigint_handler);
+	minishell_loop(lists);
 	return (0);
 }

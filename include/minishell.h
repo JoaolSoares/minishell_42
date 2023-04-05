@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 16:12:33 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/04/04 21:46:42 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/04/05 02:09:45 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,10 +87,7 @@ char	**basic_split_command(char *cmd);
 
 //  PARSER  //
 char	**split_command(char *cmd, t_node *env, int return_value);
-char	*catch_env(char *env_var, t_node *env);
 void	translate_env_var(t_aux *aux, int i, t_node *env, int return_value);
-int		simple_quote(t_aux *aux, int i);
-int		double_quote(t_aux *aux, int i, t_node *env, int return_value);
 
 void	ft_exit(char **command, t_lists *lists);
 

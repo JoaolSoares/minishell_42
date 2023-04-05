@@ -6,11 +6,33 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 20:54:58 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/04/04 21:34:15 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/04/05 02:09:38 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+int	double_quote(t_aux *aux, int i, t_node *env, int return_value)
+{
+	ft_pullchars(aux->cmd, i, 4);
+	while (aux->cmd[i] != '"' && aux->cmd[i])
+	{
+		if (aux->cmd[i] == '$')
+			translate_env_var(aux, i, env, return_value);
+		i++;
+	}
+	ft_pullchars(aux->cmd, i, 4);
+	return (--i);
+}
+
+int	simple_quote(t_aux *aux, int i)
+{
+	ft_pullchars(aux->cmd, i, 4);
+	while (aux->cmd[i] != 39 && aux->cmd[i])
+		i++;
+	ft_pullchars(aux->cmd, i--, 4);
+	return (i);
+}
 
 char	**split_command(char *cmd, t_node *env, int return_value)
 {
