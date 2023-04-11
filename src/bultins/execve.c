@@ -100,6 +100,7 @@ int	execve_return(char **split_cmd, t_lists *lists)
 
 	if (pipe(pipe_fd) < 0)
 		exit (1);
+	return_value = 0;
 	signal(SIGINT, SIG_IGN);
 	pid = child_process();
 	if (pid == 0)
@@ -107,7 +108,6 @@ int	execve_return(char **split_cmd, t_lists *lists)
 	wait(NULL);
 	signal(SIGINT, sigint_handler);
 	close(pipe_fd[1]);
-	return_value = 0;
 	read(pipe_fd[0], &return_value, sizeof(int));
 	close(pipe_fd[0]);
 	free_split(split_cmd);
