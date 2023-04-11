@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 14:39:48 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/04/05 02:32:13 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/04/11 20:21:02 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ char	*cut_command(char **command)
 	char	*temp;
 	int		i;
 
+	if (!ft_strncmp(command[0], "|", 2))
+		return (NULL);
 	i = 1;
 	cut_str = ft_strdup(command[0]);
 	while (command[i] && ft_strncmp(command[i], "|", 2))
@@ -30,7 +32,7 @@ char	*cut_command(char **command)
 	return (cut_str);
 }
 
-static void	first_child(t_pipes_data *pipe, char **command, \
+void	first_child(t_pipes_data *pipe, char **command, \
 t_lists *lists, int *ret_val)
 {
 	pid_t	pid;
@@ -53,7 +55,7 @@ t_lists *lists, int *ret_val)
 	waitpid(1, NULL, 0);
 }
 
-static void	middle_child(t_pipes_data *pipe, char **command, \
+void	middle_child(t_pipes_data *pipe, char **command, \
 t_lists *lists, int *ret_val)
 {
 	pid_t	pid;
@@ -77,7 +79,7 @@ t_lists *lists, int *ret_val)
 	waitpid(1, NULL, 0);
 }
 
-static void	final_child(t_pipes_data *pipe, char **command, \
+void	final_child(t_pipes_data *pipe, char **command, \
 t_lists *lists, int *ret_val)
 {
 	pid_t	pid;
@@ -98,37 +100,4 @@ t_lists *lists, int *ret_val)
 		exit(551);
 	}
 	waitpid(1, NULL, 0);
-}
-
-void	call_childs(t_pipes_data *pipe, t_lists *lists, \
-char **command, int *ret_val)
-{
-	char	**cmd_rest;
-	char	**aux_cmd;
-	int		i;
-	int		pipe_position;
-
-	pipe->index = 0;
-	first_child(pipe, command, lists, ret_val);
-	i = 0;
-	while (ft_strncmp(command[i], "|", 2))
-		i++;
-	cmd_rest = str_rest(0, i, command);
-	free_split(command);
-	pipe_position = pipe->num_pipes;
-	while (pipe_position > 1)
-	{
-		middle_child(pipe, cmd_rest, lists, ret_val);
-		i = 0;
-		while (ft_strncmp(cmd_rest[i], "|", 2))
-			i++;
-		aux_cmd = ft_mtxdup(cmd_rest);
-		free_split(cmd_rest);
-		cmd_rest = str_rest(0, i, aux_cmd);
-		free_split(aux_cmd);
-		pipe->index++;
-		pipe_position--;
-	}
-	final_child(pipe, cmd_rest, lists, ret_val);
-	free_split(cmd_rest);
 }

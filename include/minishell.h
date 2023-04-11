@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 16:12:33 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/04/05 02:09:45 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/04/11 20:34:49 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,12 @@
 
 //  INCLUDES  //
 # include "../lib/include/libft.h"
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <sys/stat.h>
 # include <sys/types.h>
 # include <sys/wait.h>
-# include <sys/stat.h>
 # include <fcntl.h>
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -65,6 +68,9 @@ typedef struct s_pipes_data
 //  PROMPT  //
 char	*prompt(void);
 void	print_terminal_line(void);
+
+//  SIGNAL  //
+void	sigint_handler(int sig_num);
 
 //  LINKED LIST  //
 void	envp_linked_list(t_node **root, char **envp);
@@ -115,5 +121,11 @@ int		**open_pipes(int num);
 void	close_pipes(int **pipes, int num, int opt);
 void	call_childs(t_pipes_data *pipe, t_lists *lists, \
 char **command, int *ret_val);
+void	first_child(t_pipes_data *pipe, char **command, \
+t_lists *lists, int *ret_val);
+void	middle_child(t_pipes_data *pipe, char **command, \
+t_lists *lists, int *ret_val);
+void	final_child(t_pipes_data *pipe, char **command, \
+t_lists *lists, int *ret_val);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 21:17:43 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/04/04 21:56:17 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/04/05 15:02:27 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ char	**str_rest(int delete, int size, char **cmd)
 	i = 0;
 	while (i >= delete && i <= delete + size)
 		i++;
+	if (!cmd[i])
+		return (NULL);
 	aux_str = ft_strdup(cmd[i]);
 	while (cmd[++i])
 	{

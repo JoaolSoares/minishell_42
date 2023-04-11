@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 16:35:29 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/04/04 20:53:21 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/04/05 14:51:14 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	free_split(char **split)
 	int	i;
 
 	i = -1;
+	if (!split)
+		return ;
 	while (split[++i])
 		free(split[i]);
 	free(split);

@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 23:43:44 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/04/05 02:27:21 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/04/11 20:36:08 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,16 @@ int	count_pipes(char **command)
 void	pipe_exec(char **command, t_lists *lists, int *ret_val)
 {
 	t_pipes_data	*pipe;
+	int				i;
 
 	pipe = malloc(sizeof(t_pipes_data));
 	pipe->num_pipes = count_pipes(command);
 	pipe->pipefd = open_pipes(pipe->num_pipes);
+	pipe->index = 0;
 	call_childs(pipe, lists, command, ret_val);
-	wait(NULL);
 	close_pipes(pipe->pipefd, pipe->num_pipes, 1);
+	i = -1;
+	while (++i <= pipe->num_pipes)
+		waitpid(0, NULL, 0);
 	free(pipe);
 }

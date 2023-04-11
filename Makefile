@@ -6,7 +6,7 @@
 #    By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/09 00:10:02 by jlucas-s          #+#    #+#              #
-#    Updated: 2023/04/04 21:31:01 by jlucas-s         ###   ########.fr        #
+#    Updated: 2023/04/11 20:22:38 by jlucas-s         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ SRCS =			src/main.c					\
 				src/terminal_line.c			\
 				src/identify_exec.c			\
 				src/parser/split_command.c	\
-				src/parser/utils.c	\
+				src/parser/utils.c			\
 				src/bultins/exit.c			\
 				src/bultins/execve.c		\
 				src/bultins/echo.c			\
@@ -43,6 +43,7 @@ SRCS =			src/main.c					\
 				src/redirects/input.c		\
 				src/pipe/pipe_exec.c		\
 				src/pipe/pipes.c			\
+				src/pipe/call_childs.c		\
 				src/pipe/childs.c			\
 
 OBJS_DIR = 		./objects

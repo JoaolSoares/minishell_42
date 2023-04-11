@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 19:09:40 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/04/04 21:01:27 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/04/11 20:18:29 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,27 +77,35 @@ static char	**env_to_envp(t_node *env)
 	return (envp);
 }
 
+void	child_execve(int *pipe_fd, t_lists *lists, char **split_cmd, \
+int return_value)
+{
+	char	**envp;
+
+	signal(SIGINT, sigint_handler);
+	close(pipe_fd[0]);
+	envp = env_to_envp(lists->env);
+	return_value = execve_command(split_cmd, envp);
+	write(pipe_fd[1], &return_value, sizeof(int));
+	close(pipe_fd[1]);
+	free_exit(lists, split_cmd, 1);
+	exit(1);
+}
+
 int	execve_return(char **split_cmd, t_lists *lists)
 {
 	pid_t	pid;
 	int		pipe_fd[2];
 	int		return_value;
-	char	**envp;
 
 	if (pipe(pipe_fd) < 0)
 		exit (1);
+	signal(SIGINT, SIG_IGN);
 	pid = child_process();
 	if (pid == 0)
-	{
-		close(pipe_fd[0]);
-		envp = env_to_envp(lists->env);
-		return_value = execve_command(split_cmd, envp);
-		write(pipe_fd[1], &return_value, sizeof(int));
-		close(pipe_fd[1]);
-		free_exit(lists, split_cmd, 1);
-		exit(1);
-	}
+		child_execve(pipe_fd, lists, split_cmd, return_value);
 	wait(NULL);
+	signal(SIGINT, sigint_handler);
 	close(pipe_fd[1]);
 	return_value = 0;
 	read(pipe_fd[0], &return_value, sizeof(int));
