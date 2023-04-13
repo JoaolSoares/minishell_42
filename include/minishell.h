@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 16:12:33 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/04/11 20:34:49 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/04/12 21:40:31 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,15 @@ typedef struct s_pipes_data
 
 }	t_pipes_data;
 
+typedef struct s_exit
+{
+	t_lists	*lists;
+	char	**cmd;
+
+}	t_exit;
+
+extern t_exit	*struct_exit;
+
 //  FUNCTIONS  //
 //  PROMPT  //
 char	*prompt(void);
@@ -71,6 +80,7 @@ void	print_terminal_line(void);
 
 //  SIGNAL  //
 void	sigint_handler(int sig_num);
+void	kill_process(int signum);
 
 //  LINKED LIST  //
 void	envp_linked_list(t_node **root, char **envp);
@@ -94,6 +104,8 @@ char	**basic_split_command(char *cmd);
 //  PARSER  //
 char	**split_command(char *cmd, t_node *env, int return_value);
 void	translate_env_var(t_aux *aux, int i, t_node *env, int return_value);
+
+int		print_env(t_node *root, char **command);
 
 void	ft_exit(char **command, t_lists *lists);
 

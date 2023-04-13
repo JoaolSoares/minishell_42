@@ -6,11 +6,13 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 21:56:39 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/04/04 22:20:24 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/04/12 22:01:50 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+t_exit	*struct_exit;
 
 char	**input(char **cmd, int i, t_lists *lists)
 {
@@ -90,6 +92,7 @@ void	identify_input(char **cmd, t_lists *lists, int *ret_val)
 			identify_exec(cmd_rest, lists, ret_val);
 			unlink("heredoc");
 			free_exit(lists, cmd, 0);
+			free(struct_exit);
 			exit(0);
 		}
 		else if (!ft_strncmp(cmd[i], "<", 2))
@@ -98,6 +101,7 @@ void	identify_input(char **cmd, t_lists *lists, int *ret_val)
 			free_split(cmd);
 			identify_exec(cmd_rest, lists, ret_val);
 			free_exit(lists, cmd, 0);
+			free(struct_exit);
 			exit(0);
 		}
 	}
@@ -108,8 +112,17 @@ void	redirect_input(char **cmd, t_lists *lists, int *ret_val)
 	int		pid;
 
 	pid = child_process();
+	signal(SIGINT, SIG_IGN);
 	if (pid == 0)
-		identify_input(cmd, lists, ret_val);
+	{
+		struct_exit = malloc(sizeof(t_exit));
+		struct_exit->lists = lists;
+		struct_exit->cmd = ft_mtxdup(cmd);
+		free_split(cmd);
+		signal(SIGINT, kill_process);
+		identify_input(struct_exit->cmd, struct_exit->lists, ret_val);
+	}
 	wait(NULL);
+	signal(SIGINT, sigint_handler);
 	free_split(cmd);
 }

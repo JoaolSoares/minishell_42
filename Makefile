@@ -6,7 +6,7 @@
 #    By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/09 00:10:02 by jlucas-s          #+#    #+#              #
-#    Updated: 2023/04/11 20:22:38 by jlucas-s         ###   ########.fr        #
+#    Updated: 2023/04/12 20:49:32 by jlucas-s         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ SRCS =			src/main.c					\
 				src/linked_list.c			\
 				src/free.c					\
 				src/fork.c					\
+				src/signal.c				\
 				src/terminal_line.c			\
 				src/identify_exec.c			\
 				src/parser/split_command.c	\
@@ -35,6 +36,7 @@ SRCS =			src/main.c					\
 				src/bultins/exit.c			\
 				src/bultins/execve.c		\
 				src/bultins/echo.c			\
+				src/bultins/env.c			\
 				src/bultins/cd_utils.c		\
 				src/bultins/cd.c			\
 				src/bultins/unset.c			\

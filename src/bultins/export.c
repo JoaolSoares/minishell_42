@@ -6,11 +6,24 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 19:33:17 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/04/04 21:44:41 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/04/12 16:45:25 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+static int	print_export(t_node *root)
+{
+	t_node	*aux;
+
+	aux = root;
+	while (aux)
+	{
+		ft_printf("declare -x %s\n", aux->content);
+		aux = aux->next;
+	}
+	return (0);
+}
 
 char	*ft_until_strdup(const char *s, size_t index)
 {
@@ -45,13 +58,12 @@ int	export(char **command, t_node *env)
 	char	*aux_str;
 
 	i = 1;
+	if (!command[i])
+		print_export(env);
 	while (command[i])
 	{
 		if (!ft_strchr(command[i], '='))
-		{
-			ft_printf("%s :is invalid\n", command[i]);
-			return (1);
-		}
+			insert_in_list(&env, command[i++]);
 		else if (ft_strlen(command[i]) == \
 		(ft_strlen_until(command[i], '=') + 1) && command[i + 1])
 		{

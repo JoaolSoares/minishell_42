@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 21:30:06 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/04/05 02:09:33 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/04/12 16:21:51 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,12 @@ static void	insert_env_var(int i, t_aux *aux, t_node *env)
 	while (aux->cmd[j] != ' ' && aux->cmd[j] != '"' && aux->cmd[j])
 		j++;
 	env_var = ft_until_strdup(aux->cmd + i + 1, j - i - 1);
+	while (--j >= i)
+		ft_pullchars(aux->cmd, j, 4);
 	if (!catch_env(env_var, env))
 		free(env_var);
 	else
 	{
-		while (--j >= i)
-			ft_pullchars(aux->cmd, j, 4);
 		temp = ft_strdup(aux->cmd);
 		free(aux->cmd);
 		aux->cmd = ft_strinsert(temp, catch_env(env_var, env), i);

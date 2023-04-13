@@ -6,25 +6,11 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 16:15:55 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/04/05 02:15:14 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/04/12 21:58:32 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-void	sigint_handler(int sig_num)
-{
-	if (sig_num == SIGINT)
-	{
-		ft_putchar('\n');
-		print_terminal_line();
-		ft_putchar('\n');
-		rl_on_new_line();
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
-	}
-}
 
 void	minishell_loop(t_lists *lists)
 {

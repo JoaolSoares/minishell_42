@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 16:35:50 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/04/05 02:31:14 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/04/12 19:45:41 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	identify_exec2(char **split_cmd, t_lists *lists, int *ret_val)
 		*ret_val = export(split_cmd, lists->env);
 	else if (!ft_strncmp(split_cmd[0], "env", \
 	ft_strlen(split_cmd[0]) + 1))
-		*ret_val = print_linked_list(lists->env, split_cmd);
+		*ret_val = print_env(lists->env, split_cmd);
 	else if (!ft_strncmp(split_cmd[0], "history", \
 	ft_strlen(split_cmd[0]) + 1))
 		*ret_val = print_linked_list(lists->history, split_cmd);
@@ -61,4 +61,6 @@ void	identify_exec(char **split_cmd, t_lists *lists, int *ret_val)
 		else
 			*ret_val = identify_exec2(split_cmd, lists, ret_val);
 	}
+	else
+		free_split(split_cmd);
 }
