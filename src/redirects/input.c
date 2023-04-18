@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 21:56:39 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/04/12 22:01:50 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/04/13 11:08:37 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,19 +89,19 @@ void	identify_input(char **cmd, t_lists *lists, int *ret_val)
 		{
 			cmd_rest = heredoc_input(cmd, i, lists);
 			free_split(cmd);
+			free(struct_exit);
 			identify_exec(cmd_rest, lists, ret_val);
 			unlink("heredoc");
 			free_exit(lists, cmd, 0);
-			free(struct_exit);
 			exit(0);
 		}
 		else if (!ft_strncmp(cmd[i], "<", 2))
 		{
 			cmd_rest = input(cmd, i, lists);
 			free_split(cmd);
+			free(struct_exit);
 			identify_exec(cmd_rest, lists, ret_val);
 			free_exit(lists, cmd, 0);
-			free(struct_exit);
 			exit(0);
 		}
 	}

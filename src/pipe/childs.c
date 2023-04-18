@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 14:39:48 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/04/12 20:25:22 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/04/17 19:07:56 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,34 +77,38 @@ t_lists *lists, int *ret_val)
 	}
 }
 
-void	final_child(t_pipes_data *struct_pipe, char **command, \
+void	final_child(t_pipes_data *s_pipe, char **command, \
 t_lists *lists, int *ret_val)
 {
 	pid_t	pid;
 	char	**alone_cmd;
-	int		pipe_ret_fd[2];
+	// int		pipe_ret_fd[2];
 
-	if (pipe(pipe_ret_fd) < 0)
-		exit (1);
+	// if (pipe(pipe_ret_fd) < 0)
+	// 	exit(1);
 	pid = child_process();
 	if (pid < 0)
 		exit (550);
 	if (pid == 0)
 	{
-		close(pipe_ret_fd[0]);
-		dup2(struct_pipe->pipefd[struct_pipe->index][0], STDIN_FILENO);
-		close_pipes(struct_pipe->pipefd, struct_pipe->num_pipes, 1);
-		free(struct_pipe);
+		close(s_pipe->ret_pipe[0]);
+		dup2(s_pipe->pipefd[s_pipe->index][0], STDIN_FILENO);
+		close_pipes(s_pipe->pipefd, s_pipe->num_pipes, 1);
 		alone_cmd = ft_split(cut_command(command), 4, 1);
 		free_split(command);
-		// write(pipe_ret_fd[1], ret_val, sizeof(int));
+		*ret_val = 0;
+		// for (int i = 0; alone_cmd[i]; i++)
+		// 	ft_printf("alone[%i] = %s\n", i, alone_cmd[i]);
 		identify_exec(alone_cmd, lists, ret_val);
-		write(pipe_ret_fd[1], ret_val, sizeof(int));	//trava quando da certo o commando
-		close(pipe_ret_fd[1]);
+		// *ret_val = execve_return(alone_cmd, lists);
+		// child_execve(s_pipe->ret_pipe, lists, alone_cmd);
+		write(s_pipe->ret_pipe[1], ret_val, sizeof(int));
+		close(s_pipe->ret_pipe[1]);
+		free(s_pipe);
 		free_exit(lists, command, 0);
 		exit(551);
 	}
-	close(pipe_ret_fd[1]);
-	read(pipe_ret_fd[0], ret_val, sizeof(int));
-	close(pipe_ret_fd[0]);
+	// close(pipe_ret_fd[1]);
+	// read(pipe_ret_fd[0], ret_val, sizeof(int));
+	// close(pipe_ret_fd[0]);
 }

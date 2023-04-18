@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 16:12:33 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/04/12 21:40:31 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/04/13 20:35:40 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef struct s_pipes_data
 	int				index;
 	int				position;
 	char			**cmd_rest;
+	int				ret_pipe[2];
 
 }	t_pipes_data;
 
@@ -90,6 +91,7 @@ int		print_linked_list(t_node *root, char **command);
 
 //  FORK  //
 pid_t	child_process(void);
+void	child_execve(int *pipe_fd, t_lists *lists, char **split_cmd);
 
 //  FREE  //
 void	free_split(char **split);
@@ -131,13 +133,13 @@ char	**str_rest(int delete, int size, char **cmd);
 void	pipe_exec(char **command, t_lists *lists, int *ret_val);
 int		**open_pipes(int num);
 void	close_pipes(int **pipes, int num, int opt);
-void	call_childs(t_pipes_data *pipe, t_lists *lists, \
+void	call_childs(t_pipes_data *s_pipe, t_lists *lists, \
 char **command, int *ret_val);
 void	first_child(t_pipes_data *pipe, char **command, \
 t_lists *lists, int *ret_val);
 void	middle_child(t_pipes_data *pipe, char **command, \
 t_lists *lists, int *ret_val);
-void	final_child(t_pipes_data *pipe, char **command, \
+void	final_child(t_pipes_data *s_pipe, char **command, \
 t_lists *lists, int *ret_val);
 
 #endif

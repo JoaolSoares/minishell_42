@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 19:09:40 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/04/12 20:23:06 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/04/17 19:17:23 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,6 @@ void	child_execve(int *pipe_fd, t_lists *lists, char **split_cmd)
 	char	**envp;
 	int		return_value;
 
-	return_value = 0;
-	if (!ft_strncmp(split_cmd[0], "ls", 3) && split_cmd[1] && access(split_cmd[1], R_OK))
-		return_value = 2;
 	signal(SIGINT, sigint_handler);
 	close(pipe_fd[0]);
 	envp = env_to_envp(lists->env);
@@ -101,6 +98,9 @@ int	execve_return(char **split_cmd, t_lists *lists)
 	int		pipe_fd[2];
 	int		return_value;
 
+	return_value = 0;
+	if (!ft_strncmp(split_cmd[0], "ls", 3) && split_cmd[1] && access(split_cmd[1], R_OK))
+		return_value = 2;
 	if (pipe(pipe_fd) < 0)
 		exit (1);
 	signal(SIGINT, SIG_IGN);
