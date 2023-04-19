@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 20:48:08 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/04/12 21:49:21 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/04/18 22:30:43 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ void	sigint_handler(int sig_num)
 	}
 }
 
-void kill_process(int signum)
+void	kill_process(int signum)
 {
 	(void)signum;
-	free_exit(struct_exit->lists, struct_exit->cmd, 1);
-	free(struct_exit);
+	free_exit(g_struct_exit->lists, g_struct_exit->cmd, 1);
+	free(g_struct_exit);
 	rl_clear_history();
 	exit(1);
 }

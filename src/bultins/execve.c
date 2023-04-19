@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 19:09:40 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/04/17 19:17:23 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/04/18 22:31:24 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	execve_command(char **command, char **envp)
 	char	*temp;
 	char	*path;
 	int		i;
-	
+
 	temp = ft_strdup(command[0]);
 	execve(command[0], command, envp);
 	possible_paths = find_paths(envp);
@@ -99,7 +99,8 @@ int	execve_return(char **split_cmd, t_lists *lists)
 	int		return_value;
 
 	return_value = 0;
-	if (!ft_strncmp(split_cmd[0], "ls", 3) && split_cmd[1] && access(split_cmd[1], R_OK))
+	if (!ft_strncmp(split_cmd[0], "ls", 3) && split_cmd[1] && \
+	access(split_cmd[1], R_OK))
 		return_value = 2;
 	if (pipe(pipe_fd) < 0)
 		exit (1);

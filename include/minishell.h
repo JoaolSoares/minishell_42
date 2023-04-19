@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 16:12:33 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/04/13 20:35:40 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/04/18 22:27:13 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ typedef struct s_pipes_data
 	int				index;
 	int				position;
 	char			**cmd_rest;
-	int				ret_pipe[2];
 
 }	t_pipes_data;
 
@@ -72,7 +71,7 @@ typedef struct s_exit
 
 }	t_exit;
 
-extern t_exit	*struct_exit;
+extern t_exit	*g_struct_exit;
 
 //  FUNCTIONS  //
 //  PROMPT  //

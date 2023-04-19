@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 14:39:48 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/04/17 19:07:56 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/04/18 22:34:28 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,51 @@ t_lists *lists, int *ret_val)
 	}
 }
 
+void	close_and_read_pipes(t_pipes_data *s_pipe, int	*ret_pipe, int *ret_val)
+{
+	int	i;
+
+	close_pipes(s_pipe->pipefd, s_pipe->num_pipes, 1);
+	i = -1;
+	while (++i <= s_pipe->num_pipes)
+		waitpid(0, NULL, 0);
+	close(ret_pipe[1]);
+	read(ret_pipe[0], ret_val, sizeof(int));
+	close(ret_pipe[0]);
+}
+
 void	final_child(t_pipes_data *s_pipe, char **command, \
+t_lists *lists, int *ret_val)
+{
+	pid_t	pid;
+	char	**alone_cmd;
+	int		ret_pipe[2];
+
+	if (pipe(ret_pipe) < 0)
+		exit(1);
+	pid = child_process();
+	if (pid < 0)
+		exit (550);
+	if (pid == 0)
+	{
+		close(ret_pipe[0]);
+		dup2(s_pipe->pipefd[s_pipe->index][0], STDIN_FILENO);
+		close_pipes(s_pipe->pipefd, s_pipe->num_pipes, 1);
+		alone_cmd = ft_split(cut_command(command), 4, 1);
+		free_split(command);
+		*ret_val = 0;
+		free(s_pipe);
+		identify_exec(alone_cmd, lists, ret_val);
+		write(ret_pipe[1], ret_val, sizeof(int));
+		close(ret_pipe[1]);
+		free_exit(lists, command, 0);
+		exit(551);
+	}
+	close_and_read_pipes(s_pipe, ret_pipe, ret_val);
+}
+
+/* 
+void	final_child(t_pipes_data *s_pipe, char **command,
 t_lists *lists, int *ret_val)
 {
 	pid_t	pid;
@@ -112,3 +156,4 @@ t_lists *lists, int *ret_val)
 	// read(pipe_ret_fd[0], ret_val, sizeof(int));
 	// close(pipe_ret_fd[0]);
 }
+*/
