@@ -11,6 +11,7 @@
 </p>
 
 # Minishell
+by jlucas-s and dofranci<br>
 The ninth project from 42<br>
 Minishell is a project from 42. The goal of this project is to create a simple shell, with basic functions.
 
