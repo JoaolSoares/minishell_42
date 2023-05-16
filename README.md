@@ -5,6 +5,7 @@
 
 <p align="center">
     <img src="https://img.shields.io/badge/OS-Linux-blue" alt="OS">
+    <img src="https://img.shields.io/tokei/lines/github/JoaolSoares/minishell_42?color=critical">
     <img src="https://img.shields.io/badge/Language-C%20%7C%20C%2B%2B-orange.svg" alt="Language">
     <img src="https://img.shields.io/badge/Grade-100%2F100-brightgreen.svg" alt="Grade">
     <img src="https://img.shields.io/badge/Status-Completed-brightgreen.svg" alt="Status">
